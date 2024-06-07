@@ -1,0 +1,28 @@
+{
+    "name": "xiphias/composer-package-creation-template",
+    "description": "This is the template for developing and testing creation of composer packages",
+    "autoload": {
+        "psr-4": {
+            "Xiphias\\": "src/Xiphias"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "XiphiasTest\\": "tests/XiphiasTest/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Filip Gojković",
+            "email": "filip.gojkovic@xiphias.hr"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "spryker/code-sniffer": "*",
+        "spryker/container": "*",
+        "spryker/testify": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
