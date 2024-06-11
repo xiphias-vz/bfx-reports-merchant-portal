@@ -1,6 +1,6 @@
 {
-    "name": "xiphias/composer-package-creation-template",
-    "description": "This is the template for developing and testing creation of composer packages",
+    "name": "xiphias/bfx-reports-merchant-portal",
+    "description": "Package for connecting spryker's merchant portal to bladefx services",
     "autoload": {
         "psr-4": {
             "Xiphias\\": "src/Xiphias"
@@ -15,9 +15,31 @@
         {
             "name": "Filip Gojković",
             "email": "filip.gojkovic@xiphias.hr"
+        },
+        {
+            "name": "Domagoj Križanec",
+            "email": "domagoj.krizanec@xiphias.hr"
+        },
+        {
+            "name": "Nino Hasl",
+            "email": "nino.hasl@xiphias.hr"
+        },
+        {
+            "name": "Javor Novosel",
+            "email": "javor.novosel@xiphias.hr"
+        },
+        {
+            "name": "Edo Kreš",
+            "email": "edo.kres@xiphias.hr"
+        },
+        {
+            "name": "Tomislav Lenartić",
+            "email": "tomislav.lenartic@xiphias.hr"
         }
     ],
-    "require": {},
+    "require": {
+        "php": ">=8.2"
+    },
     "require-dev": {
         "spryker/code-sniffer": "*",
         "spryker/container": "*",
