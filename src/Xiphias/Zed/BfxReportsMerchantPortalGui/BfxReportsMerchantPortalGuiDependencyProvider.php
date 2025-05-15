@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Pyz\Zed\BfxReportsMerchantPortalGui;
+namespace Xiphias\Zed\BfxReportsMerchantPortalGui;
 
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;

@@ -7,11 +7,11 @@
 
 declare(strict_types=1);
 
-namespace Pyz\Zed\BfxReportsMerchantPortalGui\Communication;
+namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication;
 
-use Pyz\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiDependencyProvider;
-use Pyz\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableConfigurationProvider;
-use Pyz\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableDataProvider;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiDependencyProvider;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableConfigurationProvider;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableDataProvider;
 use Spryker\Shared\GuiTable\GuiTableFactoryInterface;
 use Spryker\Shared\GuiTable\Http\GuiTableDataRequestExecutorInterface;
 use Spryker\Shared\ZedUi\ZedUiFactoryInterface;
@@ -20,12 +20,12 @@ use Spryker\Zed\MerchantUser\Business\MerchantUserFacadeInterface;
 use Xiphias\Zed\Reports\Business\ReportsFacadeInterface;
 
 /**
- * @method \Pyz\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig getConfig();
+ * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig getConfig();
  */
 class BfxReportsMerchantPortalGuiCommunicationFactory extends AbstractCommunicationFactory
 {
     /**
-     * @return \Pyz\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableConfigurationProvider
+     * @return \Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableConfigurationProvider
      */
     public function createBfxReportsMerchantPortalGuiTableConfigurationProvider(): BfxReportsMerchantPortalGuiTableConfigurationProvider
     {
@@ -38,7 +38,7 @@ class BfxReportsMerchantPortalGuiCommunicationFactory extends AbstractCommunicat
     /**
      * @param array $params
      *
-     * @return \Pyz\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableDataProvider
+     * @return \Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableDataProvider
      */
     public function createBfxReportsMerchantPortalGuiTableDataProvider(array $params): BfxReportsMerchantPortalGuiTableDataProvider
     {
