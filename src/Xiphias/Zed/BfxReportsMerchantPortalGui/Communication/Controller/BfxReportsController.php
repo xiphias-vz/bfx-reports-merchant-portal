@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Pyz\Zed\BfxReportsMerchantPortalGui\Communication\Controller;
+namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Controller;
 
 use Generated\Shared\Transfer\BladeFxAuthenticationRequestTransfer;
 use Generated\Shared\Transfer\BladeFxParameterTransfer;
@@ -23,7 +23,7 @@ use Xiphias\Zed\Reports\Communication\Plugins\Authentication\BladeFxSessionHandl
 use Xiphias\Zed\Reports\ReportsConfig;
 
 /**
- * @method \Pyz\Zed\BfxReportsMerchantPortalGui\Communication\BfxReportsMerchantPortalGuiCommunicationFactory getFactory();
+ * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\BfxReportsMerchantPortalGuiCommunicationFactory getFactory();
  */
 class BfxReportsController extends AbstractController
 {

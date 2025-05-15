@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Pyz\Zed\BfxReportsMerchantPortalGui\Communication\Provider;
+namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider;
 
 use Generated\Shared\Transfer\BladeFxReportTransfer;
 use Generated\Shared\Transfer\GuiTableConfigurationTransfer;
