@@ -1,6 +1,6 @@
 {
     "name": "xiphias/bfx-reports-merchant-portal",
-    "description": "Integration of BladeFx reports service with merchant portal",
+    "description": "Package for connecting spryker's merchant portal to bladefx services",
     "autoload": {
         "psr-4": {
             "Xiphias\\": "src/Xiphias"
@@ -38,8 +38,7 @@
         }
     ],
     "require": {
-        "php": ">=8.0",
-        "xiphias/bfx-reports": "*"
+        "php": ">=8.1"
     },
     "require-dev": {
         "spryker/code-sniffer": "*",
