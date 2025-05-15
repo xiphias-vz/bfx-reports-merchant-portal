@@ -9,13 +9,18 @@ declare(strict_types=1);
 
 namespace Pyz\Zed\BfxReportsMerchantPortalGui\Communication\Controller;
 
+use Generated\Shared\Transfer\BladeFxAuthenticationRequestTransfer;
 use Generated\Shared\Transfer\BladeFxParameterTransfer;
 use Generated\Shared\Transfer\BladeFxReportTransfer;
+use Spryker\Client\Session\SessionClient;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Xiphias\Client\ReportsApi\ReportsApiClient;
 use Xiphias\Shared\Reports\ReportsConstants;
+use Xiphias\Zed\Reports\Communication\Plugins\Authentication\BladeFxSessionHandlerPostAuthenticationPlugin;
+use Xiphias\Zed\Reports\ReportsConfig;
 
 /**
  * @method \Pyz\Zed\BfxReportsMerchantPortalGui\Communication\BfxReportsMerchantPortalGuiCommunicationFactory getFactory();
@@ -32,11 +37,24 @@ class BfxReportsController extends AbstractController
      */
     public function indexAction(): array
     {
+        $this->temp();
+
         return $this->viewResponse([
             static::REPORTS_TABLE_CONFIGURATION => $this->getFactory()
                 ->createBfxReportsMerchantPortalGuiTableConfigurationProvider()
                 ->getConfiguration(),
         ]);
+    }
+
+    public function temp(): void
+    {
+        $tr = (new BladeFxAuthenticationRequestTransfer())
+            ->setUsername((new ReportsConfig())->getDefaultUsername())
+            ->setPassword((new ReportsConfig())->getDefaultPassword())
+            ->setLicenceExp((new ReportsConfig())->getDefaultLicenceExp());
+
+        $val = (new ReportsApiClient())->sendAuthenticateUserRequest($tr);
+        (new BladeFxSessionHandlerPostAuthenticationPlugin())->execute($val);
     }
 
     /**
@@ -151,9 +169,9 @@ class BfxReportsController extends AbstractController
         $paramName = $request->query->get(BladeFxParameterTransfer::PARAM_NAME);
         $paramValue = $request->query->get(BladeFxParameterTransfer::PARAM_VALUE);
 
-        $url = "/bfx-reports-merchant-portal-gui/bfx-reports/report-download?repId=${reportId}&format=pdf";
+        $url = "/bfx-reports-merchant-portal-gui/bfx-reports/report-download?repId={$reportId}&format=pdf";
         if ($paramName && $paramValue) {
-            $url .= "&paramName=${paramName}&paramValue=${paramValue}";
+            $url .= "&paramName={$paramName}&paramValue={$paramValue}";
         }
 
         $zedUiFormResponseTransfer = $this
