@@ -86,7 +86,7 @@ class BfxReportsMerchantPortalGuiTableConfigurationProvider
     ): GuiTableConfigurationBuilderInterface {
         $guiTableConfigurationBuilder->addRowActionDrawerUrlHtmlRenderer(
             'report-iframe',
-            'Edit',
+            'Preview',
             sprintf(
                 'bfx-reports/report-iframe?repId=${row.%s}',
                 BladeFxReportTransfer::REP_ID,
