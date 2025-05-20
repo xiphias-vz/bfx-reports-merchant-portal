@@ -141,15 +141,18 @@ class BfxReportsController extends AbstractController
      */
     public function reportDownloadAction(Request $request): Response
     {
-        $reportId = $this->castId($request->query->get(BladeFxReportTransfer::REP_ID));
         $format = $request->query->get('format');
+        $reportName = $request->query->get(BladeFxReportTransfer::REP_NAME);
+        $reportId = $this->castId($request->query->get(ReportsConstants::REPORT_ID));
 
-        $paramName = $request->query->get(BladeFxParameterTransfer::PARAM_NAME);
-        $paramValue = $request->query->get(BladeFxParameterTransfer::PARAM_VALUE);
+        $paramTransfer = $this->getFactory()
+            ->createBfxReportsMerchantPortalCommunicationMapper()
+            ->mapDownloadParametersToNewParameterListTransfer($request);
 
-        $paramTransfer = (new BladeFxParameterTransfer())->setReportId($reportId)->setParamName($paramName)->setParamValue($paramValue)->setSqlDbType('');
-        $responseTransfer = $this->getFactory()->getReportsFacade()->getReportByIdInWantedFormat($reportId, $format, $paramTransfer);
-        $headers = $this->buildDownloadHeaders($format);
+        $responseTransfer = $this->getFactory()->getReportsFacade()
+            ->getReportByIdInWantedFormat($reportId, $format, $paramTransfer);
+
+        $headers = $this->getFactory()->getReportsFacade()->buildDownloadHeaders($format, $reportId, $reportName);
 
         return new Response(
             $responseTransfer->getReport(),

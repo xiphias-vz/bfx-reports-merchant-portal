@@ -12,6 +12,5 @@
         <property name="filterIsActive" type="bool"/>
         <property name="filterIsDrilldown" type="bool"/>
         <property name="filterIsFavorite" type="bool"/>
-
     </transfer>
 </transfers>

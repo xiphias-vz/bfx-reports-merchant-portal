@@ -9,14 +9,16 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication;
 
-use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiDependencyProvider;
-use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableConfigurationProvider;
-use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableDataProvider;
 use Spryker\Shared\GuiTable\GuiTableFactoryInterface;
 use Spryker\Shared\GuiTable\Http\GuiTableDataRequestExecutorInterface;
 use Spryker\Shared\ZedUi\ZedUiFactoryInterface;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 use Spryker\Zed\MerchantUser\Business\MerchantUserFacadeInterface;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiDependencyProvider;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Mapper\BfxReportsMerchantPortalCommunicationMapper;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Mapper\BfxReportsMerchantPortalCommunicationMapperInterface;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableConfigurationProvider;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableDataProvider;
 use Xiphias\Zed\Reports\Business\ReportsFacadeInterface;
 
 /**
@@ -46,6 +48,14 @@ class BfxReportsMerchantPortalGuiCommunicationFactory extends AbstractCommunicat
             $this->getReportsFacade(),
             $params,
         );
+    }
+
+    /**
+     * @return BfxReportsMerchantPortalCommunicationMapperInterface
+     */
+    public function createBfxReportsMerchantPortalCommunicationMapper(): BfxReportsMerchantPortalCommunicationMapperInterface
+    {
+        return new BfxReportsMerchantPortalCommunicationMapper();
     }
 
     /**
