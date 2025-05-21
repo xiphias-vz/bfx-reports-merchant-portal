@@ -127,7 +127,7 @@ class BfxReportsController extends AbstractController
 
         $responseData = [
             'html' => $this->renderView('@BfxReportsMerchantPortalGui/Partials/report-iframe.twig', [
-                'url' => $reportParamFormTransfer->getUrl(),
+                'url' => $this->getFactory()->getReportsFacade()->assemblePreviewUrl($reportParamFormTransfer),
             ])->getContent(),
         ];
 
@@ -146,7 +146,7 @@ class BfxReportsController extends AbstractController
         $reportId = $this->castId($request->query->get(ReportsConstants::REPORT_ID));
 
         $paramTransfer = $this->getFactory()
-            ->createBfxReportsMerchantPortalCommunicationMapper()
+            ->getReportsFacade()
             ->mapDownloadParametersToNewParameterListTransfer($request);
 
         $responseTransfer = $this->getFactory()->getReportsFacade()

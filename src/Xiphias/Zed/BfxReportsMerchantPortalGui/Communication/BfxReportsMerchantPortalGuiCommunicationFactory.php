@@ -14,9 +14,8 @@ use Spryker\Shared\GuiTable\Http\GuiTableDataRequestExecutorInterface;
 use Spryker\Shared\ZedUi\ZedUiFactoryInterface;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 use Spryker\Zed\MerchantUser\Business\MerchantUserFacadeInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiDependencyProvider;
-use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Mapper\BfxReportsMerchantPortalCommunicationMapper;
-use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Mapper\BfxReportsMerchantPortalCommunicationMapperInterface;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableConfigurationProvider;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableDataProvider;
 use Xiphias\Zed\Reports\Business\ReportsFacadeInterface;
@@ -48,14 +47,6 @@ class BfxReportsMerchantPortalGuiCommunicationFactory extends AbstractCommunicat
             $this->getReportsFacade(),
             $params,
         );
-    }
-
-    /**
-     * @return BfxReportsMerchantPortalCommunicationMapperInterface
-     */
-    public function createBfxReportsMerchantPortalCommunicationMapper(): BfxReportsMerchantPortalCommunicationMapperInterface
-    {
-        return new BfxReportsMerchantPortalCommunicationMapper();
     }
 
     /**
@@ -96,5 +87,13 @@ class BfxReportsMerchantPortalGuiCommunicationFactory extends AbstractCommunicat
     public function getZedUiFactory(): ZedUiFactoryInterface
     {
         return $this->getProvidedDependency(BfxReportsMerchantPortalGuiDependencyProvider::SERVICE_ZED_UI_FACTORY);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\RequestStack|null
+     */
+    public function getRequestStackService(): ?RequestStack
+    {
+        return $this->getProvidedDependency(BfxReportsMerchantPortalGuiDependencyProvider::SERVICE_REQUEST_STACK);
     }
 }

@@ -10,7 +10,7 @@ use Spryker\Zed\UserExtension\Dependency\Plugin\UserPostSavePluginInterface;
 
 /**
  * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Business\BfxReportsMerchantPortalGuiFacade getFacade();
- * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Business\BfxReportsMerchantPortalGuiBusinessFactory getFactory();
+ * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\BfxReportsMerchantPortalGuiCommunicationFactory getFactory();
  * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiRepositoryInterface getRepository()
  */
 class DeleteUserOnBfxMerchantPortalPostSavePlugin extends AbstractPlugin implements UserPostSavePluginInterface

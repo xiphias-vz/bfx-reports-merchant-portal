@@ -19,7 +19,7 @@ class BfxReportsMerchantPortalGuiFacade extends AbstractFacade implements BfxRep
      */
     public function executeBfxUserHandlingPlugins(UserTransfer $userTransfer): UserTransfer
     {
-        return $this->getFactory()->createBfxReportsMerchantPortalPluginHandler()->executeBfxUserHandlingPlugins($userTransfer);
+        return $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->executeBfxUserHandlingPlugins($userTransfer);
     }
 
     /**
@@ -61,7 +61,7 @@ class BfxReportsMerchantPortalGuiFacade extends AbstractFacade implements BfxRep
      */
     public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser, bool $isActive = true): void
     {
-        $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->createOrUpdateUserOnBfx($userTransfer, $isActive, $isMerchantUser);
+        $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->createOrUpdateUserOnBladeFx($userTransfer, $isActive, $isMerchantUser);
     }
 
     /**
@@ -93,6 +93,6 @@ class BfxReportsMerchantPortalGuiFacade extends AbstractFacade implements BfxRep
      */
     public function isMerchantUser(int $userId): bool
     {
-        return $this->getFactory()->getRepository()->isMerchantUser($userId);
+        return $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->isMerchantUser($userId);
     }
 }

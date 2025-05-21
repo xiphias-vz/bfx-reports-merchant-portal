@@ -22,6 +22,15 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
     /**
      * @return string
      */
+    public function getBladeFxGroupName(): string
+    {
+        return ReportsConstants::BLADE_FX_GROUP_NAME;
+    }
+
+
+    /**
+     * @return string
+     */
     public function getSprykerOrderDetailAttribute(): string
     {
         return static::SPRYKER_ORDER_DETAIL_MP_ATTRIBUTE;

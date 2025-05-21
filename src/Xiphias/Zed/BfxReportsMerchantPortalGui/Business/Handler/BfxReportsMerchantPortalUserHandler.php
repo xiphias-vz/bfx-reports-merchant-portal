@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Handler;
 
+use Generated\Shared\Transfer\BladeFxCreateOrUpdateUserCustomFieldsTransfer;
+use Generated\Shared\Transfer\BladeFxCreateOrUpdateUserRequestTransfer;
+use Generated\Shared\Transfer\BladeFxTokenTransfer;
 use Generated\Shared\Transfer\UserTransfer;
 use Spryker\Client\Session\SessionClientInterface;
 use Xiphias\Client\ReportsApi\ReportsApiClientInterface;
@@ -42,6 +45,16 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
     }
 
     /**
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function isMerchantUser(int $userId): bool
+    {
+        return $this->repository->isMerchantUser($userId);
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      * @param bool $isActive
      * @param bool $isItFromBO
@@ -53,7 +66,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
         $requestTransfer = $this->generateAuthenticatedCreateOrUpdateUserOnBladeFxRequestTransfer($userTransfer, $isActive, $isMerchantUser);
 
         try {
-            $this->reportsApiClient->sendCreateOrUpdateUserOnBfxRequest($requestTransfer);
+//            $this->reportsApiClient->sendCreateOrUpdateUserOnBfxRequest($requestTransfer);
         } catch (Exception $exception) {
             return;
         }
@@ -63,8 +76,6 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
      * @param UserTransfer $userTransfer
      * @param bool $isMerchantUser
      * @param bool $isActive
-     *
-     * @return UserTransfer
      */
     public function deleteUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser, bool $isActive = false): void
     {
