@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\User;
 
+use Generated\Shared\Transfer\UserTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
-use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\UserTransfer;
 use Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface;
 
 /**
@@ -30,7 +30,7 @@ class CreateBfxUserOnBfxMerchantPortalPlugin extends AbstractPlugin implements B
      */
     public function execute(UserTransfer $userTransfer): void
     {
-        $this->getFacade()->deleteUserOnBladeFx($userTransfer, $this->isMerchantUser($userTransfer));
+        $this->getFacade()->createOrUpdateUserOnBladeFx($userTransfer, $this->isMerchantUser($userTransfer));
     }
 
     /**
@@ -40,6 +40,6 @@ class CreateBfxUserOnBfxMerchantPortalPlugin extends AbstractPlugin implements B
      */
     protected function isMerchantUser(UserTransfer $userTransfer): bool
     {
-        return $this->getFacade()->isMerchantUser($userTransfer->getUserId());
+        return $this->getFacade()->isMerchantUser($userTransfer->getIdUser());
     }
 }

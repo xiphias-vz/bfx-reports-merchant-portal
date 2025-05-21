@@ -3,12 +3,14 @@
 declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence;
+
+use Spryker\Zed\Kernel\Persistence\AbstractRepository;
+
 /**
  * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiPersistenceFactory getFactory();
  */
-class BfxReportsMerchantPortalGuiRepository implements BfxReportsMerchantPortalGuiRepositoryInterface
+class BfxReportsMerchantPortalGuiRepository extends AbstractRepository implements BfxReportsMerchantPortalGuiRepositoryInterface
 {
-
     /**
      * @return int
      */

@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence;
 
+use Orm\Zed\Acl\Persistence\SpyAclGroupQuery;
+use Orm\Zed\MerchantUser\Persistence\SpyMerchantUserQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
-use Xiphias\Zed\SprykerBladeFxUser\Persistence\SpyAclGroupQuery;
-use Xiphias\Zed\SprykerBladeFxUser\Persistence\SpyAclUserHasGroupQuery;
-use Xiphias\Zed\SprykerBladeFxUser\Persistence\SpyMerchantUserQuery;
 
 /**
- * @method \Xiphias\Zed\SprykerBladeFxUser\SprykerBladeFxUserConfig getConfig();
+ * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig getConfig();
  */
 class BfxReportsMerchantPortalGuiPersistenceFactory extends AbstractPersistenceFactory
 {

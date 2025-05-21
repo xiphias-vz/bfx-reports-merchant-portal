@@ -65,6 +65,13 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
     public const SESSION_CLIENT = 'SESSION_CLIENT';
 
     /**
+     * @uses \Spryker\Zed\Http\Communication\Plugin\Application\HttpApplicationPlugin::SERVICE_REQUEST_STACK
+     *
+     * @var string
+     */
+    public const SERVICE_REQUEST_STACK = 'request_stack';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -72,12 +79,12 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
     public function provideCommunicationLayerDependencies(Container $container): Container
     {
         $container = $this->addReportsFacade($container);
-        $container = $this->addSprykerBladeFxUserFacade($container);
         $container = $this->addMerchantUserFacade($container);
         $container = $this->addGuiTableFactory($container);
         $container = $this->addGuiTableHttpDataRequestHandler($container);
         $container = $this->addZedUiFactory($container);
-        $container = $this->addBfxUserHandlingPlugins($container);
+        $container = $this->addRequestStackService($container);
+
 
         return $container;
     }
@@ -91,6 +98,8 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
     {
         $container = $this->addBladeFxClient($container);
         $container = $this->addSessionClient($container);
+        $container = $this->addSprykerBladeFxUserFacade($container);
+        $container = $this->addBfxUserHandlingPlugins($container);
 
         return $container;
     }
@@ -206,6 +215,22 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
     {
         $container->set(static::SESSION_CLIENT, function (Container $container) {
             return $container->getLocator()->session()->client();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addRequestStackService(Container $container): Container
+    {
+        $container->set(static::SERVICE_REQUEST_STACK, function (Container $container) {
+            return $container->hasApplicationService(static::SERVICE_REQUEST_STACK)
+                ? $container->getApplicationService(static::SERVICE_REQUEST_STACK)
+                : null;
         });
 
         return $container;

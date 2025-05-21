@@ -43,7 +43,6 @@ class BfxReportsSalesOrderTabTableConfigurationProvider
     public function getConfiguration(MerchantOrderTransfer $merchantOrderTransfer): GuiTableConfigurationTransfer
     {
         $idOrder = $merchantOrderTransfer->getIdOrder();
-
         $guiTableConfigurationBuilder = $this->guiTableFactory->createConfigurationBuilder();
 
         $guiTableConfigurationBuilder = $this->addColumns($guiTableConfigurationBuilder);
@@ -87,7 +86,8 @@ class BfxReportsSalesOrderTabTableConfigurationProvider
             'download-pdf',
             'Download as PDF',
             sprintf(
-                '/bfx-reports-merchant-portal-gui/bfx-reports/report-download-response-builder?repId=${row.%s}&format=pdf&paramName=' . static::PARAM_NAME_ORDER_ID . '&paramValue=%s',
+//                '/bfx-reports-merchant-portal-gui/bfx-reports/report-download-response-builder?repId=${row.%s}&format=pdf&paramName=' . static::PARAM_NAME_ORDER_ID . '&paramValue=%s',
+            '/bfx-reports-merchant-portal-gui/bfx-reports/report-download?repId=${row.%s}&format=pdf&paramName=' . static::PARAM_NAME_ORDER_ID . '&paramValue=%s',
                 BladeFxReportTransfer::REP_ID,
                 $idOrder,
             ),
