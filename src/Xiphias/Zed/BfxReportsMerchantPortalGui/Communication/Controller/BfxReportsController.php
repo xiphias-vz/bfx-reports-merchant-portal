@@ -114,11 +114,7 @@ class BfxReportsController extends AbstractController
      */
     public function reportPreviewWithParameterAction(Request $request): Response
     {
-        $paramTransfer = (new BladeFxParameterTransfer())
-            ->setParamName($request->query->get(BladeFxParameterTransfer::PARAM_NAME))
-            ->setParamValue($request->query->get(BladeFxParameterTransfer::PARAM_VALUE))
-            ->setReportId((int)$request->query->get(BladeFxReportTransfer::REP_ID))
-            ->setSqlDbType('');
+        $paramTransfer = $this->getFactory()->getReportsFacade()->mapPreviewParametersToNewParameterTransfer($request);
 
         $reportParamFormTransfer = $this
             ->getFactory()
@@ -143,7 +139,7 @@ class BfxReportsController extends AbstractController
     {
         $format = $request->query->get('format');
         $reportName = $request->query->get(BladeFxReportTransfer::REP_NAME);
-        $reportId = $this->castId($request->query->get(ReportsConstants::REPORT_ID));
+        $reportId = $this->castId($request->query->get(BladeFxReportTransfer::REP_ID));
 
         $paramTransfer = $this->getFactory()
             ->getReportsFacade()
@@ -169,10 +165,11 @@ class BfxReportsController extends AbstractController
     public function reportDownloadResponseBuilderAction(Request $request): JsonResponse
     {
         $reportId = $this->castId($request->query->get(BladeFxReportTransfer::REP_ID));
+        $reportName = $request->query->get(BladeFxReportTransfer::REP_NAME);
         $paramName = $request->query->get(BladeFxParameterTransfer::PARAM_NAME);
         $paramValue = $request->query->get(BladeFxParameterTransfer::PARAM_VALUE);
 
-        $url = "/bfx-reports-merchant-portal-gui/bfx-reports/report-download?repId={$reportId}&format=pdf";
+        $url = "/bfx-reports-merchant-portal-gui/bfx-reports/report-download?repId={$reportId}&repName={$reportName}&format=pdf";
         if ($paramName && $paramValue) {
             $url .= "&paramName={$paramName}&paramValue={$paramValue}";
         }
