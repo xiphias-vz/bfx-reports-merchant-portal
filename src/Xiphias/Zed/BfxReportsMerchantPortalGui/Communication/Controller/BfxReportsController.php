@@ -187,20 +187,6 @@ class BfxReportsController extends AbstractController
     /**
      * @param string $fileFormat
      *
-     * @return array
-     */
-    protected function buildDownloadHeaders(string $fileFormat): array
-    {
-        return [
-            'Content-Type' => $this->getApplicationType($fileFormat),
-            'Content-Disposition' => 'attachment; filename=' . 'filename.' . $fileFormat,
-            'Pragma' => 'Public',
-        ];
-    }
-
-    /**
-     * @param string $fileFormat
-     *
      * @return string
      */
     protected function getApplicationType(string $fileFormat): string
