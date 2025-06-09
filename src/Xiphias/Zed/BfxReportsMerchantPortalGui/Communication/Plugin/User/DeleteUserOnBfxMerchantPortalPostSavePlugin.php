@@ -27,12 +27,7 @@ class DeleteUserOnBfxMerchantPortalPostSavePlugin extends AbstractPlugin impleme
      */
     public function postSave(UserTransfer $userTransfer): UserTransfer
     {
-        $request = $this->getFactory()->getRequestStackService()?->getCurrentRequest();
-
-        if ($request
-            && $request->isMethod(static::HTTP_METHOD_DELETE)
-            && $this->getFacade()->hasUserBfxGroup($userTransfer->getIdUser())
-        ) {
+        if ($userTransfer->getStatus() === 'deleted' && $this->getFacade()->hasUserBfxGroup($userTransfer->getIdUser())) {
             $isMerchantUser = $this->getFacade()->isMerchantUser($userTransfer->getIdUser());
             $this->getFacade()->deleteUserOnBladeFx($userTransfer, $isMerchantUser);
         }
