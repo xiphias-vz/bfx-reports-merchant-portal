@@ -126,7 +126,7 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
     protected function addSprykerBladeFxUserFacade(Container $container): Container
     {
         $container->set(static::SPRYKER_BLADEFX_USER_FACADE, function (Container $container) {
-            return $container->getLocator()->SprykerBladeFxUser()->facade();
+            return $container->getLocator()->sprykerBladeFxUser()->facade();
         });
 
         return $container;

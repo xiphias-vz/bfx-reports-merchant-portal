@@ -23,9 +23,9 @@ class BfxReportsMerchantPortalGuiRepository extends AbstractRepository implement
     /**
      * @param int $userId
      *
-     * @return string
+     * @return int
      */
-    public function getUserMerchantId(int $userId): string
+    public function getUserMerchantId(int $userId): int
     {
         $merchantUserQuery = $this->getFactory()->createMerchantUserQuery();
         $userMerchantId = $merchantUserQuery->findByFkUser($userId)->getIterator()->current();

@@ -128,7 +128,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
             return $bladeFxCreateOrUpdateUserRequestTransfer
                 ->addCustomFields((new BladeFxCreateOrUpdateUserCustomFieldsTransfer())
                     ->setFieldName($this->config->getMerchantIdKey())
-                    ->setFieldValue($this->repository->getUserMerchantId($userId)));
+                    ->setFieldValue((string)$this->repository->getUserMerchantId($userId)));
         }
 
         return $bladeFxCreateOrUpdateUserRequestTransfer;

@@ -13,9 +13,9 @@ interface BfxReportsMerchantPortalGuiRepositoryInterface
     /**
      * @param int $userId
      *
-     * @return string
+     * @return int
      */
-    public function getUserMerchantId(int $userId): string;
+    public function getUserMerchantId(int $userId): int;
 
     /**
      * @param int $userId
