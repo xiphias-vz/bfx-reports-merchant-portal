@@ -45,10 +45,17 @@ class BfxReportsMerchantPortalGuiTableDataProvider extends AbstractGuiTableDataP
             ->getAllReports($this->params[ReportsConstants::ATTRIBUTE])
             ->getReportsList()
             ->getArrayCopy();
+
+        $reportTotal = count($reportList);
+        $pageSize = $criteriaTransfer->getPageSize();
+        $startingIndex = ($criteriaTransfer->getPage() - 1) * $pageSize;
+
         /** @var \Generated\Shared\Transfer\BladeFxCriteriaTransfer $criteriaTransfer */
         if ($criteriaTransfer->getSearchTerm()) {
             $reportList = $this->search($reportList, $criteriaTransfer->getSearchTerm());
         }
+
+        $reportList = array_slice($reportList, $startingIndex, $criteriaTransfer->getPageSize());
         /**
          * @var \Generated\Shared\Transfer\BladeFxReportTransfer $reportListItem
          */
@@ -67,7 +74,7 @@ class BfxReportsMerchantPortalGuiTableDataProvider extends AbstractGuiTableDataP
         }
 
         return $guiTableDataResponseTransfer
-            ->setTotal(count($reportList))
+            ->setTotal($reportTotal)
             ->setPageSize($criteriaTransfer->getPageSize())
             ->setPage($criteriaTransfer->getPage());
     }
@@ -93,7 +100,7 @@ class BfxReportsMerchantPortalGuiTableDataProvider extends AbstractGuiTableDataP
         $searchRows = [];
         foreach ($rows as $row) {
             /** @var \Generated\Shared\Transfer\BladeFxReportTransfer $row */
-            if (str_contains($row->getRepName(), $searchTerm)) {
+            if (str_contains(strtolower($row->getRepName()), strtolower($searchTerm))) {
                 $searchRows[] = $row;
             }
         }
