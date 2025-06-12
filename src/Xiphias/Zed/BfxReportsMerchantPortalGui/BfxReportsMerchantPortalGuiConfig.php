@@ -1,9 +1,5 @@
 <?php
 
-/**
- * This file is part of the Spryker Commerce OS.
- * For full license information, please view the LICENSE file that was distributed with this source code.
- */
 
 declare(strict_types=1);
 
@@ -26,7 +22,6 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
     {
         return ReportsConstants::BLADE_FX_GROUP_NAME;
     }
-
 
     /**
      * @return string
@@ -74,5 +69,13 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
     public function getBfxUserLanguageIdSessionKey(): string
     {
         return ReportsConstants::BFX_USER_LANGUAGE_ID_SESSION_KEY;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDefaultCategoryIndex(): int
+    {
+        return -1;
     }
 }

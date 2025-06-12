@@ -13,12 +13,15 @@ use Xiphias\Client\ReportsApi\ReportsApiClientInterface;
 use Xiphias\Shared\Reports\ReportsConstants;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiRepositoryInterface;
-use Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface;
 
 class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUserHandlerInterface
 {
     /**
-     * @param array<BfxUserHandlerPluginInterface> $bfxUserHandlerPlugins
+     * @param \Spryker\Client\Session\SessionClientInterface $sessionClient
+     * @param \Xiphias\Client\ReportsApi\ReportsApiClientInterface $reportsApiClient
+     * @param \Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig $config
+     * @param \Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiRepositoryInterface $repository
+     * @param array<\Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface> $bfxUserHandlerPlugins
      */
     public function __construct(
         protected SessionClientInterface $sessionClient,
@@ -26,12 +29,13 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
         protected BfxReportsMerchantPortalGuiConfig $config,
         protected BfxReportsMerchantPortalGuiRepositoryInterface $repository,
         protected array $bfxUserHandlerPlugins
-    ) {}
+    ) {
+    }
 
     /**
-     * @param UserTransfer $userTransfer
+     * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      *
-     * @return UserTransfer
+     * @return \Generated\Shared\Transfer\UserTransfer
      */
     public function executeBfxUserHandlingPlugins(UserTransfer $userTransfer): UserTransfer
     {
@@ -57,7 +61,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
     /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      * @param bool $isActive
-     * @param bool $isItFromBO
+     * @param bool $isMerchantUser
      *
      * @return void
      */
@@ -73,9 +77,11 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
     }
 
     /**
-     * @param UserTransfer $userTransfer
+     * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      * @param bool $isMerchantUser
      * @param bool $isActive
+     *
+     * @return void
      */
     public function deleteUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser, bool $isActive = false): void
     {
@@ -92,9 +98,8 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
     public function generateAuthenticatedCreateOrUpdateUserOnBladeFxRequestTransfer(
         UserTransfer $userTransfer,
         bool $isActive = true,
-        bool $isMerchantUser = false,
-    ): BladeFxCreateOrUpdateUserRequestTransfer
-    {
+        bool $isMerchantUser = false
+    ): BladeFxCreateOrUpdateUserRequestTransfer {
         $bladeFxCreateOrUpdateUserRequestTransfer = (new BladeFxCreateOrUpdateUserRequestTransfer())
             ->setToken((new BladeFxTokenTransfer())->setToken($this->getToken()))
             ->setEmail($userTransfer->getUsername())
@@ -122,7 +127,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
     protected function appendMerchantIdToRequest(
         BladeFxCreateOrUpdateUserRequestTransfer $bladeFxCreateOrUpdateUserRequestTransfer,
         int $userId,
-        bool $isMerchantUser,
+        bool $isMerchantUser
     ): BladeFxCreateOrUpdateUserRequestTransfer {
         if ($isMerchantUser) {
             return $bladeFxCreateOrUpdateUserRequestTransfer

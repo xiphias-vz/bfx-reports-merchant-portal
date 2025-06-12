@@ -11,7 +11,6 @@ use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiDependenc
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Handler\BfxReportsMerchantPortalUserHandler;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Handler\BfxReportsMerchantPortalUserHandlerInterface;
 use Xiphias\Zed\SprykerBladeFxUser\Business\SprykerBladeFxUserFacadeInterface;
-use Xiphias\Zed\SprykerBladeFxUser\SprykerBladeFxUserDependencyProvider;
 
 /**
  * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiRepositoryInterface getRepository();
@@ -20,7 +19,7 @@ use Xiphias\Zed\SprykerBladeFxUser\SprykerBladeFxUserDependencyProvider;
 class BfxReportsMerchantPortalGuiBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return BfxReportsMerchantPortalUserHandlerInterface
+     * @return \Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Handler\BfxReportsMerchantPortalUserHandlerInterface
      */
     public function createBfxReportsMerchantPortalUserHandler(): BfxReportsMerchantPortalUserHandlerInterface
     {
@@ -29,7 +28,7 @@ class BfxReportsMerchantPortalGuiBusinessFactory extends AbstractBusinessFactory
             $this->getBladeFxClient(),
             $this->getConfig(),
             $this->getRepository(),
-            $this->getBfxUserHandlingPlugins()
+            $this->getBfxUserHandlingPlugins(),
         );
     }
 
@@ -50,7 +49,7 @@ class BfxReportsMerchantPortalGuiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return array<Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface>
+     * @return array<\Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface>
      */
     public function getBfxUserHandlingPlugins(): array
     {
@@ -58,7 +57,7 @@ class BfxReportsMerchantPortalGuiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return SprykerBladeFxUserFacadeInterface
+     * @return \Xiphias\Zed\SprykerBladeFxUser\Business\SprykerBladeFxUserFacadeInterface
      */
     public function getSprykerBladeFxUserFacade(): SprykerBladeFxUserFacadeInterface
     {

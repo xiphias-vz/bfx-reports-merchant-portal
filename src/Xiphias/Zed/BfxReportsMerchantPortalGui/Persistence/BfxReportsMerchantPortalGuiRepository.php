@@ -17,7 +17,6 @@ class BfxReportsMerchantPortalGuiRepository extends AbstractRepository implement
     public function getBladeFxGroupId(): int
     {
         return $this->findWantedGroupId($this->getFactory()->getConfig()->getBladeFxGroupName());
-
     }
 
     /**

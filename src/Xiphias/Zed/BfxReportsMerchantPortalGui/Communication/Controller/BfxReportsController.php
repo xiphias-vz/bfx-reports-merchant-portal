@@ -1,25 +1,23 @@
 <?php
 
-/**
- * This file is part of the Spryker Commerce OS.
- * For full license information, please view the LICENSE file that was distributed with this source code.
- */
 
 declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Controller;
 
 use Generated\Shared\Transfer\BladeFxAuthenticationRequestTransfer;
+use Generated\Shared\Transfer\BladeFxCategoryTransfer;
 use Generated\Shared\Transfer\BladeFxParameterTransfer;
 use Generated\Shared\Transfer\BladeFxReportTransfer;
-use Spryker\Client\Session\SessionClient;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Xiphias\Client\ReportsApi\ReportsApiClient;
 use Xiphias\Shared\Reports\ReportsConstants;
+use Xiphias\Zed\Reports\Business\ReportsFacade;
 use Xiphias\Zed\Reports\Communication\Plugins\Authentication\BladeFxSessionHandlerPostAuthenticationPlugin;
+use Xiphias\Zed\Reports\Communication\ReportsCommunicationFactory;
 use Xiphias\Zed\Reports\ReportsConfig;
 
 /**
@@ -28,33 +26,26 @@ use Xiphias\Zed\Reports\ReportsConfig;
 class BfxReportsController extends AbstractController
 {
     /**
-     * @var string
-     */
-    public const REPORTS_TABLE_CONFIGURATION = 'bfxReportsTableConfiguration';
-
-    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return array<mixed>
      */
-    public function indexAction(): array
+    public function indexAction(Request $request): array
     {
-        $this->temp();
+        $categories = (new ReportsFacade())->processCategoryTreeListRequest($request);
+        $categories = array_map(function (BladeFxCategoryTransfer $category) {
+            return $category->toArray(true, true);
+        }, $categories);
+
+        $categoryTree = (new ReportsCommunicationFactory())->createCategoryTreeBuilder()->buildCategoryTree($categories);
+
 
         return $this->viewResponse([
-            static::REPORTS_TABLE_CONFIGURATION => $this->getFactory()
+            'categoryTree' => array_values($categoryTree),
+            'bfxReportsTableConfiguration' => $this->getFactory()
                 ->createBfxReportsMerchantPortalGuiTableConfigurationProvider()
                 ->getConfiguration(),
         ]);
-    }
-
-    public function temp(): void
-    {
-        $tr = (new BladeFxAuthenticationRequestTransfer())
-            ->setUsername((new ReportsConfig())->getDefaultUsername())
-            ->setPassword((new ReportsConfig())->getDefaultPassword())
-            ->setLicenceExp((new ReportsConfig())->getDefaultLicenceExp());
-
-        $val = (new ReportsApiClient())->sendAuthenticateUserRequest($tr);
-        (new BladeFxSessionHandlerPostAuthenticationPlugin())->execute($val);
     }
 
     /**
@@ -66,7 +57,7 @@ class BfxReportsController extends AbstractController
     {
         return $this->getFactory()->getGuiTableHttpDataRequestExecutor()->execute(
             $request,
-            $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider([ReportsConstants::ATTRIBUTE => '']),
+            $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider($request, $this->buildParams()),
             $this->getFactory()->createBfxReportsMerchantPortalGuiTableConfigurationProvider()->getConfiguration(),
         );
     }
@@ -80,7 +71,7 @@ class BfxReportsController extends AbstractController
     {
         return $this->getFactory()->getGuiTableHttpDataRequestExecutor()->execute(
             $request,
-            $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider([ReportsConstants::ATTRIBUTE => '']),
+            $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider($request, $this->buildParams()),
             $this->getFactory()->createBfxReportsMerchantPortalGuiTableConfigurationProvider()->getConfiguration(),
         );
     }
@@ -182,6 +173,16 @@ class BfxReportsController extends AbstractController
             ->createResponse();
 
         return new JsonResponse($zedUiFormResponseTransfer->toArray());
+    }
+
+    /**
+     * @param string $attribute
+     *
+     * @return array<string, string>
+     */
+    protected function buildParams(string $attribute = ''): array
+    {
+      return [ReportsConstants::ATTRIBUTE => ''];
     }
 
     /**

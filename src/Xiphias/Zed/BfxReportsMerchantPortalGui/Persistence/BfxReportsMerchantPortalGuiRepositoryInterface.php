@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence;
+
 interface BfxReportsMerchantPortalGuiRepositoryInterface
 {
     /**

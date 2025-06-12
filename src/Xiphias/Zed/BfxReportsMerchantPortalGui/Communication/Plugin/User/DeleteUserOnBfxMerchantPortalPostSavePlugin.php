@@ -21,9 +21,9 @@ class DeleteUserOnBfxMerchantPortalPostSavePlugin extends AbstractPlugin impleme
     protected const HTTP_METHOD_DELETE = 'DELETE';
 
     /**
-     * @param UserTransfer $userTransfer
+     * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      *
-     * @return UserTransfer
+     * @return \Generated\Shared\Transfer\UserTransfer
      */
     public function postSave(UserTransfer $userTransfer): UserTransfer
     {
