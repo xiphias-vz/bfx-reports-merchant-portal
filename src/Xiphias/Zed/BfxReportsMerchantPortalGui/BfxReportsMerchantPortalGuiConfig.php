@@ -70,12 +70,4 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
     {
         return ReportsConstants::BFX_USER_LANGUAGE_ID_SESSION_KEY;
     }
-
-    /**
-     * @return int
-     */
-    public function getDefaultCategoryIndex(): int
-    {
-        return -1;
-    }
 }

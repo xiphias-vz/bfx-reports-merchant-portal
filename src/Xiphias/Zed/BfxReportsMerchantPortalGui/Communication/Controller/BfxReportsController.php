@@ -32,13 +32,11 @@ class BfxReportsController extends AbstractController
      */
     public function indexAction(Request $request): array
     {
-        $categories = (new ReportsFacade())->processCategoryTreeListRequest($request);
+        $categories = $this->getFactory()->getReportsFacade()->getCategories();
         $categories = array_map(function (BladeFxCategoryTransfer $category) {
             return $category->toArray(true, true);
         }, $categories);
-
-        $categoryTree = (new ReportsCommunicationFactory())->createCategoryTreeBuilder()->buildCategoryTree($categories);
-
+        $categoryTree = $this->getFactory()->getReportsFacade()->assembleCategoryTree($categories);
 
         return $this->viewResponse([
             'categoryTree' => array_values($categoryTree),
@@ -173,6 +171,21 @@ class BfxReportsController extends AbstractController
             ->createResponse();
 
         return new JsonResponse($zedUiFormResponseTransfer->toArray());
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function getCategoryTree(): array
+    {
+        $categories = $this->getFactory()->getReportsFacade()->getCategories();
+        $categories = array_map(function (BladeFxCategoryTransfer $category) {
+            return $category->toArray(true, true);
+        }, $categories);
+
+        $categoryTree = $this->getFactory()->getReportsFacade()->assembleCategoryTree($categories);
+
+        return array_values($categoryTree);
     }
 
     /**
