@@ -6,16 +6,14 @@
 {% endblock %}
 
 {% block content %}
-
     <web-mp-bfx-reports
         cloak
-        table-id="web-mp-bfx-reports"
+        table-id='web-mp-bfx-reports'
         table-config='{{ guiTableConfiguration(bfxReportsTableConfiguration) }}'
+        category-tree='{{ categoryTree| json_encode }}'
     >
         <h1 title>{{ 'Reports' | trans }}</h1>
     </web-mp-bfx-reports>
-
-
 {% endblock %}
 
 {% block footerJs %}

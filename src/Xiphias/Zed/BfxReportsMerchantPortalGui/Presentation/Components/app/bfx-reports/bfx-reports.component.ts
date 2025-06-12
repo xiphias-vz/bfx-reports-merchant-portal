@@ -1,5 +1,7 @@
-import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input, ViewChild, viewChild, ViewEncapsulation} from "@angular/core";
 import { TableConfig } from '@spryker/table';
+import { CoreTableComponent } from '@spryker/table';
+
 
 @Component({
     selector: 'mp-bfx-reports',
@@ -14,4 +16,10 @@ import { TableConfig } from '@spryker/table';
 export class BfxReportsComponent {
     @Input() tableConfig: TableConfig;
     @Input() tableId?: string;
+    @Input() categoryTree: any[];
+    @ViewChild(CoreTableComponent) reportsTable: CoreTableComponent;
+
+    onCategoryPick(config: TableConfig) {
+        this.tableConfig = config;
+    }
 }

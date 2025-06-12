@@ -1,0 +1,15 @@
+@for (node of nodes; track node.value.catId) {
+<ul class="menu">
+    <li>
+        <div (click)="onClick(node.value.catId)" class="category-sidebar__list-item"
+             [attr.data-id]="node.value.catId"
+             [attr.data-active]="0"
+             [attr.data-isDefault]="false">
+            <div class="category-sidebar__list-item--text">{{ node.value.catName }}</div>
+        </div>
+        @if (node.children) {
+            <mp-bfx-reports-category-multilevel-node [nodes]="node.children"></mp-bfx-reports-category-multilevel-node>
+        }
+    </li>
+</ul>
+}

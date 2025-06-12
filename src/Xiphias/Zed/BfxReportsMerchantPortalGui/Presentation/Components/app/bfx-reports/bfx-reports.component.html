@@ -1,5 +1,15 @@
 <spy-headline>
     <ng-content select="[title]"></ng-content>
 </spy-headline>
-
-<mp-bfx-reports-table [tableId]="tableId" [config]="tableConfig"></mp-bfx-reports-table>
+<div class="container-fluid">
+    <div class="container_category-sidebar">
+        <mp-bfx-reports-category-sidebar  [tableId]="tableId"  [categoryTree]="categoryTree"></mp-bfx-reports-category-sidebar>
+    </div>
+    <div class="container_reports-table">
+        <mp-bfx-reports-table
+                [tableId]="tableId"
+                [config]="tableConfig"
+                (categoryPicked)="onCategoryPick($event)"
+        ></mp-bfx-reports-table>
+    </div>
+</div>

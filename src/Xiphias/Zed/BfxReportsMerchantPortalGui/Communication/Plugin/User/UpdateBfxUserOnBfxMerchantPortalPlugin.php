@@ -35,7 +35,7 @@ class UpdateBfxUserOnBfxMerchantPortalPlugin extends AbstractPlugin implements B
     }
 
     /**
-     * @param UserTransfer $userTransfer
+     * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      *
      * @return bool
      */

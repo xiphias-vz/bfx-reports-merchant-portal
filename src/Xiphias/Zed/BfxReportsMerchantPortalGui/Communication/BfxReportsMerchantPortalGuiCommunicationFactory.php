@@ -1,9 +1,5 @@
 <?php
 
-/**
- * This file is part of the Spryker Commerce OS.
- * For full license information, please view the LICENSE file that was distributed with this source code.
- */
 
 declare(strict_types=1);
 
@@ -14,6 +10,7 @@ use Spryker\Shared\GuiTable\Http\GuiTableDataRequestExecutorInterface;
 use Spryker\Shared\ZedUi\ZedUiFactoryInterface;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 use Spryker\Zed\MerchantUser\Business\MerchantUserFacadeInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiDependencyProvider;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableConfigurationProvider;
@@ -37,14 +34,16 @@ class BfxReportsMerchantPortalGuiCommunicationFactory extends AbstractCommunicat
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param array $params
      *
      * @return \Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableDataProvider
      */
-    public function createBfxReportsMerchantPortalGuiTableDataProvider(array $params): BfxReportsMerchantPortalGuiTableDataProvider
+    public function createBfxReportsMerchantPortalGuiTableDataProvider(Request $request, $params): BfxReportsMerchantPortalGuiTableDataProvider
     {
         return new BfxReportsMerchantPortalGuiTableDataProvider(
             $this->getReportsFacade(),
+            $request,
             $params,
         );
     }

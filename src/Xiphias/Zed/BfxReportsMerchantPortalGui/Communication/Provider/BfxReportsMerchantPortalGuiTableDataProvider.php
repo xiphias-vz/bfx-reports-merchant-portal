@@ -1,10 +1,5 @@
 <?php
 
-/**
- * This file is part of the Spryker Commerce OS.
- * For full license information, please view the LICENSE file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider;
@@ -17,6 +12,7 @@ use Generated\Shared\Transfer\GuiTableRowDataResponseTransfer;
 use Spryker\Shared\GuiTable\DataProvider\AbstractGuiTableDataProvider;
 use Spryker\Shared\GuiTable\DataProvider\GuiTableDataProviderInterface;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
+use Symfony\Component\HttpFoundation\Request;
 use Xiphias\Shared\Reports\ReportsConstants;
 use Xiphias\Zed\Reports\Business\ReportsFacadeInterface;
 
@@ -24,11 +20,13 @@ class BfxReportsMerchantPortalGuiTableDataProvider extends AbstractGuiTableDataP
 {
     /**
      * @param \Xiphias\Zed\Reports\Business\ReportsFacadeInterface $facade
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param array $params
      */
     public function __construct(
         protected ReportsFacadeInterface $facade,
-        protected array $params = [],
+        protected Request $request,
+        protected array $params = []
     ) {
     }
 
@@ -39,23 +37,23 @@ class BfxReportsMerchantPortalGuiTableDataProvider extends AbstractGuiTableDataP
      */
     protected function fetchData(AbstractTransfer $criteriaTransfer): GuiTableDataResponseTransfer
     {
+        /** @var \Generated\Shared\Transfer\BladeFxCriteriaTransfer $bladeFxCriteriaTransfer */
+        $bladeFxCriteriaTransfer = $criteriaTransfer;
         $guiTableDataResponseTransfer = new GuiTableDataResponseTransfer();
+
         $reportList = $this
             ->facade
-            ->getAllReports($this->params[ReportsConstants::ATTRIBUTE])
-            ->getReportsList()
-            ->getArrayCopy();
+            ->processGetReportsRequest($this->request, $this->params[ReportsConstants::ATTRIBUTE]);
 
         $reportTotal = count($reportList);
-        $pageSize = $criteriaTransfer->getPageSize();
-        $startingIndex = ($criteriaTransfer->getPage() - 1) * $pageSize;
+        $pageSize = $bladeFxCriteriaTransfer->getPageSize();
+        $startingIndex = ($bladeFxCriteriaTransfer->getPage() - 1) * $pageSize;
 
-        /** @var \Generated\Shared\Transfer\BladeFxCriteriaTransfer $criteriaTransfer */
-        if ($criteriaTransfer->getSearchTerm()) {
-            $reportList = $this->search($reportList, $criteriaTransfer->getSearchTerm());
+        if ($bladeFxCriteriaTransfer->getSearchTerm()) {
+            $reportList = $this->search($reportList, $bladeFxCriteriaTransfer->getSearchTerm());
         }
 
-        $reportList = array_slice($reportList, $startingIndex, $criteriaTransfer->getPageSize());
+        $reportList = array_slice($reportList, $startingIndex, $bladeFxCriteriaTransfer->getPageSize());
         /**
          * @var \Generated\Shared\Transfer\BladeFxReportTransfer $reportListItem
          */
@@ -75,8 +73,8 @@ class BfxReportsMerchantPortalGuiTableDataProvider extends AbstractGuiTableDataP
 
         return $guiTableDataResponseTransfer
             ->setTotal($reportTotal)
-            ->setPageSize($criteriaTransfer->getPageSize())
-            ->setPage($criteriaTransfer->getPage());
+            ->setPageSize($bladeFxCriteriaTransfer->getPageSize())
+            ->setPage($bladeFxCriteriaTransfer->getPage());
     }
 
     /**

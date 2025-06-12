@@ -1,0 +1,24 @@
+{# @var node \Generated\Shared\Transfer\NavigationNodeStorageTransfer #}
+{% block body %}
+    {% for node in nodes %}
+
+    <ul class="menu">
+            {% set activeCategory = node.value.isActiveTree ? '1' : '0' %}
+            {% set activeClass = node.value.isActiveTree ? 'category-sidebar__list-item--active' : '' %}
+        <li>
+
+            <div class="category-sidebar__list-item {{ activeClass }}" data-id="{{ node.value.catId }}" data-active="{{ activeCategory }}" data-isDefault="false">
+                <div class="category-sidebar__list-item--text">{{ node.value.catName }}</div>
+            </div>
+    {% if node.children is defined %}
+
+        {% include '@Reports/_partials/category-multilevel-node.twig' with {
+                nodes: node.children,
+            } only %}
+    {% endif %}
+
+        </li>
+    </ul>
+    {% endfor %}
+{% endblock %}
+

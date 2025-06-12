@@ -1,9 +1,5 @@
 <?php
 
-/**
- * This file is part of the Spryker Commerce OS.
- * For full license information, please view the LICENSE file that was distributed with this source code.
- */
 
 declare(strict_types=1);
 
@@ -30,7 +26,7 @@ class BfxReportsMerchantPortalGuiTableConfigurationProvider
      */
     public function __construct(
         GuiTableFactoryInterface $guiTableFactory,
-        MerchantUserFacadeInterface $merchantUserFacade,
+        MerchantUserFacadeInterface $merchantUserFacade
     ) {
         $this->guiTableFactory = $guiTableFactory;
         $this->merchantUserFacade = $merchantUserFacade;
@@ -53,6 +49,7 @@ class BfxReportsMerchantPortalGuiTableConfigurationProvider
         $guiTableConfigurationBuilder
             ->setDataSourceUrl('/bfx-reports-merchant-portal-gui/bfx-reports/main-reports-table-data')
             ->setSearchPlaceholder('Search by report name')
+            ->setIsPaginationEnabled(false)
             ->setDefaultPageSize(25);
 
         return $guiTableConfigurationBuilder->createConfiguration();
@@ -82,7 +79,7 @@ class BfxReportsMerchantPortalGuiTableConfigurationProvider
      */
     protected function addRowActions(
         GuiTableConfigurationBuilderInterface $guiTableConfigurationBuilder,
-        int $idMerchant,
+        int $idMerchant
     ): GuiTableConfigurationBuilderInterface {
         $guiTableConfigurationBuilder->addRowActionDrawerUrlHtmlRenderer(
             'report-iframe',

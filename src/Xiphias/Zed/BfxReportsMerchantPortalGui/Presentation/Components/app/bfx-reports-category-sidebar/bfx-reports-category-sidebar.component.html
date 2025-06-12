@@ -1,0 +1,30 @@
+<div class="category-sidebar">
+    <div class="category-sidebar__list__title">
+        <div class="category-sidebar__list-item--title">Report categories</div>
+    </div>
+
+    <div class="category-sidebar__list-item category-sidebar__list-item--active"
+         (click)="handleNodeClick(-1)"
+         [attr.data-id]="-1"
+         [attr.data-active]="1"
+         [attr.data-isDefault]="true">
+        <div class="category-sidebar__list-item--text">All categories</div>
+    </div>
+
+    @for (category of categoryTreeArray; track category.value.catId) {
+        <div class="category-sidebar__list-item"
+             (click)="handleNodeClick(category.value.catId)"
+             [attr.data-id]="category.value.catId"
+             [attr.data-active]="0"
+             [attr.data-isDefault]="false">
+            <div class="category-sidebar__list-item--text">{{ category.value.catName }}</div>
+        </div>
+
+        @if (category.children) {
+            <mp-bfx-reports-category-multilevel-node
+                    [nodes]="category.children"
+                    (nodeClicked)="handleNodeClick($event)">
+            </mp-bfx-reports-category-multilevel-node>
+        }
+    }
+</div>

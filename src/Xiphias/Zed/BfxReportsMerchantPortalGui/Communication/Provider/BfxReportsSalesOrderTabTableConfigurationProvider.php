@@ -1,9 +1,5 @@
 <?php
 
-/**
- * This file is part of the Spryker Commerce OS.
- * For full license information, please view the LICENSE file that was distributed with this source code.
- */
 
 declare(strict_types=1);
 
@@ -76,14 +72,13 @@ class BfxReportsSalesOrderTabTableConfigurationProvider
      */
     protected function addRowActions(
         GuiTableConfigurationBuilderInterface $guiTableConfigurationBuilder,
-        int $idOrder,
+        int $idOrder
     ): GuiTableConfigurationBuilderInterface {
         $guiTableConfigurationBuilder->addRowActionHttp(
             'download-pdf',
             'Download as PDF',
             sprintf(
                 '/bfx-reports-merchant-portal-gui/bfx-reports/report-download-response-builder?repId=${row.%s}&repName=${row.%s}&format=pdf&paramName=' . ReportsConstants::BLADE_FX_ORDER_PARAM_NAME . '&paramValue=%s',
-//            '/bfx-reports-merchant-portal-gui/bfx-reports/report-download?repId=${row.%s}&repName=${row.%s}&paramName=' . ReportConstants::PARAM_NAME_ORDER_ID . '&paramValue=%s&format=pdf',
                 BladeFxReportTransfer::REP_ID,
                 BladeFxReportTransfer::REP_NAME,
                 $idOrder,
