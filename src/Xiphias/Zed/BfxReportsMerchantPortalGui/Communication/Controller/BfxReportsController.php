@@ -32,14 +32,8 @@ class BfxReportsController extends AbstractController
      */
     public function indexAction(Request $request): array
     {
-        $categories = $this->getFactory()->getReportsFacade()->getCategories();
-        $categories = array_map(function (BladeFxCategoryTransfer $category) {
-            return $category->toArray(true, true);
-        }, $categories);
-        $categoryTree = $this->getFactory()->getReportsFacade()->assembleCategoryTree($categories);
-
         return $this->viewResponse([
-            'categoryTree' => array_values($categoryTree),
+            'categoryTree' => $this->getCategoryTree($request),
             'bfxReportsTableConfiguration' => $this->getFactory()
                 ->createBfxReportsMerchantPortalGuiTableConfigurationProvider()
                 ->getConfiguration(),
@@ -176,9 +170,9 @@ class BfxReportsController extends AbstractController
     /**
      * @return array<mixed>
      */
-    protected function getCategoryTree(): array
+    protected function getCategoryTree(Request $request): array
     {
-        $categories = $this->getFactory()->getReportsFacade()->getCategories();
+        $categories = $this->getFactory()->getReportsFacade()->processCategoryTreeListRequest($request);
         $categories = array_map(function (BladeFxCategoryTransfer $category) {
             return $category->toArray(true, true);
         }, $categories);
