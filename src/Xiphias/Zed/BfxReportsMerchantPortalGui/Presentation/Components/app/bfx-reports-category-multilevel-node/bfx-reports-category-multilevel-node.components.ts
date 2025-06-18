@@ -14,7 +14,7 @@ export class BfxReportsCategoryMultilevelNodeComponents {
     @Input() nodes: any[];
     @Output() nodeClicked = new EventEmitter();
 
-    onClick(categoryId: number) {
+    emitNodeClickEvent(categoryId: number) {
         this.nodeClicked.emit(categoryId);
     }
 }
