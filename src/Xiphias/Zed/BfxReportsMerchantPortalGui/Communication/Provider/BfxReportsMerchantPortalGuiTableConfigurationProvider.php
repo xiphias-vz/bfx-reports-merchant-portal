@@ -18,6 +18,9 @@ class BfxReportsMerchantPortalGuiTableConfigurationProvider
      */
     protected $guiTableFactory;
 
+    /**
+     * @var \Spryker\Zed\MerchantUser\Business\MerchantUserFacadeInterface
+     */
     private MerchantUserFacadeInterface $merchantUserFacade;
 
     /**

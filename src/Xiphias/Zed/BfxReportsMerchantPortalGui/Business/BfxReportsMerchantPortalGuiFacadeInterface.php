@@ -51,4 +51,25 @@ interface BfxReportsMerchantPortalGuiFacadeInterface
      * @return \Generated\Shared\Transfer\UserTransfer
      */
     public function deleteUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\NavigationItemCollectionTransfer $navigationItemCollectionTransfer
+     *
+     * @return \Generated\Shared\Transfer\NavigationItemCollectionTransfer
+     */
+    public function filterBfxPackages(NavigationItemCollectionTransfer $navigationItemCollectionTransfer): NavigationItemCollectionTransfer;
+
+    /**
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function hasUserBfxGroup(int $userId): bool;
+
+    /**
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function isMerchantUser(int $userId): bool;
 }

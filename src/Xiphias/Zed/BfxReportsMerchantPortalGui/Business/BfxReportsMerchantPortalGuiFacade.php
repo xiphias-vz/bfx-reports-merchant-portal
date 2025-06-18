@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Business;
 
+use Generated\Shared\Transfer\NavigationItemCollectionTransfer;
 use Generated\Shared\Transfer\UserTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
@@ -74,6 +75,16 @@ class BfxReportsMerchantPortalGuiFacade extends AbstractFacade implements BfxRep
     public function deleteUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser, bool $isActive = false): void
     {
         $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->deleteUserOnBladeFx($userTransfer, $isActive, $isMerchantUser);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\NavigationItemCollectionTransfer $navigationItemCollectionTransfer
+     *
+     * @return \Generated\Shared\Transfer\NavigationItemCollectionTransfer
+     */
+    public function filterBfxPackages(NavigationItemCollectionTransfer $navigationItemCollectionTransfer): NavigationItemCollectionTransfer
+    {
+        return $this->getFactory()->createBfxReportsNavigationItemFilter()->filterBfxPackages($navigationItemCollectionTransfer);
     }
 
     /**
