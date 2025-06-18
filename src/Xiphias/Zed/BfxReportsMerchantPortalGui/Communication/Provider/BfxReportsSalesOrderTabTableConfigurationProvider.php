@@ -43,6 +43,7 @@ class BfxReportsSalesOrderTabTableConfigurationProvider
         $guiTableConfigurationBuilder
             ->setDataSourceUrl('/bfx-reports-merchant-portal-gui/bfx-reports/sales-reports-table-data')
             ->setSearchPlaceholder('Search by report name')
+            ->setPagination(false)
             ->setDefaultPageSize(25);
 
         return $guiTableConfigurationBuilder->createConfiguration();

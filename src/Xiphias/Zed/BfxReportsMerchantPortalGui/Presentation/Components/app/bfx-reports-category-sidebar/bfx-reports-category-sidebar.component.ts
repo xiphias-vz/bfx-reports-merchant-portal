@@ -59,7 +59,7 @@ export class BfxReportsCategorySidebarComponent {
     }
 
     switchCategory(id: number) {
-        this.messengerService.categoryChosenSubject.next({categoryId: id});
+        this.messengerService.categorySelectionSubject.next({categoryId: id});
     }
 
     isActiveCategory(id) {
@@ -83,17 +83,14 @@ export class BfxReportsCategorySidebarComponent {
         return categoryElement.dataset.active;
     }
 
-
     getActiveCategory() {
         return this.activeCategory;
     }
 
     get getCategoryListItemClass(){
-        // return this.CATEGORY_LIST_ITEM_CLASS;
-        return 'category-sidebar__list-item';
+        return this.CATEGORY_LIST_ITEM_CLASS;
     }
     get getCategoryListItemActiveClass(){
-        // return this.CATEGORY_LIST_ITEM_ACTIVE_CLASS;
-        return 'category-sidebar__list-item--active'
+        return this.CATEGORY_LIST_ITEM_ACTIVE_CLASS;
     }
 }

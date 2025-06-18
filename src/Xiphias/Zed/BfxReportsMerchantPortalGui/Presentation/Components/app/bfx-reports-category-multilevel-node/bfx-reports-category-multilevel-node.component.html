@@ -1,7 +1,7 @@
 @for (node of nodes; track node.value.catId) {
 <ul class="menu">
     <li>
-        <div (click)="onClick(node.value.catId)" class="category-sidebar__list-item"
+        <div (click)="emitNodeClickEvent(node.value.catId)" class="category-sidebar__list-item"
              [attr.data-id]="node.value.catId"
              [attr.data-active]="0"
              [attr.data-isDefault]="false">
