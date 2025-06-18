@@ -15,9 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Xiphias\Client\ReportsApi\ReportsApiClient;
 use Xiphias\Shared\Reports\ReportsConstants;
-use Xiphias\Zed\Reports\Business\ReportsFacade;
 use Xiphias\Zed\Reports\Communication\Plugins\Authentication\BladeFxSessionHandlerPostAuthenticationPlugin;
-use Xiphias\Zed\Reports\Communication\ReportsCommunicationFactory;
 use Xiphias\Zed\Reports\ReportsConfig;
 
 /**
@@ -82,6 +80,7 @@ class BfxReportsController extends AbstractController
             ->getReportParamForm($reportId);
 
         $responseData = [
+            'url' => $reportParamFormTransfer->getIframeUrl(),
             'html' => $this->renderView('@BfxReportsMerchantPortalGui/Partials/report-iframe.twig', [
                 'url' => $reportParamFormTransfer->getIframeUrl(),
             ])->getContent(),
@@ -189,7 +188,7 @@ class BfxReportsController extends AbstractController
      */
     protected function buildParams(string $attribute = ''): array
     {
-      return [ReportsConstants::ATTRIBUTE => ''];
+        return [ReportsConstants::ATTRIBUTE => ''];
     }
 
     /**

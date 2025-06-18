@@ -20,8 +20,8 @@ export class BfxReportsCategorySidebarComponent {
     protected activeCategory: number;
     protected url: string = '/bfx-reports-merchant-portal-gui/bfx-reports/main-reports-table-data';
 
-    CATEGORY_LIST_ITEM_CLASS: 'category-sidebar__list-item';
-    CATEGORY_LIST_ITEM_ACTIVE_CLASS: 'category-sidebar__list-item--active';
+    CATEGORY_LIST_ITEM_CLASS: string = 'category-sidebar__list-item';
+    CATEGORY_LIST_ITEM_ACTIVE_CLASS: string = 'category-sidebar__list-item--active';
 
     constructor(
         private messengerService: BfxReportsMessengerService,

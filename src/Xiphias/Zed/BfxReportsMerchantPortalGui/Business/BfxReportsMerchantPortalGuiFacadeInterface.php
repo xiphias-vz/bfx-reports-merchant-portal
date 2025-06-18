@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Business;
 
+use Generated\Shared\Transfer\NavigationItemCollectionTransfer;
 use Generated\Shared\Transfer\UserTransfer;
 
 interface BfxReportsMerchantPortalGuiFacadeInterface
