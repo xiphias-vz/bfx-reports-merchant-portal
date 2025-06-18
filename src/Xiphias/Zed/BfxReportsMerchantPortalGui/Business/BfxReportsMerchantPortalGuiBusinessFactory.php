@@ -6,8 +6,11 @@ namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Business;
 
 use Spryker\Client\Session\SessionClientInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use Spryker\Zed\User\Business\UserFacadeInterface;
 use Xiphias\Client\ReportsApi\ReportsApiClientInterface;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiDependencyProvider;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Filter\BfxReportsNavigationItemFilter;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Filter\BfxReportsNavigationItemFilterInterface;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Handler\BfxReportsMerchantPortalUserHandler;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Handler\BfxReportsMerchantPortalUserHandlerInterface;
 use Xiphias\Zed\SprykerBladeFxUser\Business\SprykerBladeFxUserFacadeInterface;
@@ -33,11 +36,30 @@ class BfxReportsMerchantPortalGuiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Filter\BfxReportsNavigationItemFilterInterface
+     */
+    public function createBfxReportsNavigationItemFilter(): BfxReportsNavigationItemFilterInterface
+    {
+        return new BfxReportsNavigationItemFilter(
+            $this->getUserFacade(),
+            $this->getRepository(),
+        );
+    }
+
+    /**
      * @return \Xiphias\Client\ReportsApi\ReportsApiClientInterface
      */
     protected function getBladeFxClient(): ReportsApiClientInterface
     {
         return $this->getProvidedDependency(BfxReportsMerchantPortalGuiDependencyProvider::BLADE_FX_CLIENT);
+    }
+
+    /**
+     * @return \Spryker\Zed\User\Business\UserFacadeInterface
+     */
+    protected function getUserFacade(): UserFacadeInterface
+    {
+        return $this->getProvidedDependency(BfxReportsMerchantPortalGuiDependencyProvider::USER_FACADE);
     }
 
     /**

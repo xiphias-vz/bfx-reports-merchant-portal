@@ -33,6 +33,11 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
     /**
      * @var string
      */
+    public const USER_FACADE = 'USER_FACADE';
+
+    /**
+     * @var string
+     */
     public const SERVICE_GUI_TABLE_HTTP_DATA_REQUEST_EXECUTOR = 'gui_table_http_data_request_executor';
 
     /**
@@ -95,6 +100,7 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
         $container = $this->addSessionClient($container);
         $container = $this->addSprykerBladeFxUserFacade($container);
         $container = $this->addBfxUserHandlingPlugins($container);
+        $container = $this->addUserFacade($container);
 
         return $container;
     }
@@ -136,6 +142,20 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
     {
         $container->set(static::MERCHANT_USER_FACADE, function (Container $container) {
             return $container->getLocator()->merchantUser()->facade();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addUserFacade(Container $container): Container
+    {
+        $container->set(static::USER_FACADE, function (Container $container) {
+            return $container->getLocator()->user()->facade();
         });
 
         return $container;
