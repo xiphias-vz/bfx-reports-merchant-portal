@@ -32,4 +32,11 @@ interface BfxReportsMerchantPortalUserHandlerInterface
      * @return \Generated\Shared\Transfer\UserTransfer
      */
     public function deleteUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser, bool $isActive = false): void;
+
+    /**
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function isMerchantUser(int $userId): bool;
 }

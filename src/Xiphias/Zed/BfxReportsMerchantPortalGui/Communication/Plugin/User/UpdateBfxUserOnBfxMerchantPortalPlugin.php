@@ -31,7 +31,7 @@ class UpdateBfxUserOnBfxMerchantPortalPlugin extends AbstractPlugin implements B
      */
     public function execute(UserTransfer $userTransfer): void
     {
-        $this->getFacade()->createOrUpdateUserOnBfx($userTransfer, $this->isMerchantUser($userTransfer));
+        $this->getFacade()->createOrUpdateUserOnBladeFx($userTransfer, $this->isMerchantUser($userTransfer));
     }
 
     /**

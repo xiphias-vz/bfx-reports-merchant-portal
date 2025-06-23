@@ -91,7 +91,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
     /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      * @param bool $isActive
-     * @param bool $isItFromBO
+     * @param bool $isMerchantUser
      *
      * @return \Generated\Shared\Transfer\BladeFxCreateOrUpdateUserRequestTransfer
      */

@@ -71,7 +71,7 @@ class BfxReportsMerchantPortalGuiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return array<\Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface>
+     * @return array<\Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface>
      */
     public function getBfxUserHandlingPlugins(): array
     {

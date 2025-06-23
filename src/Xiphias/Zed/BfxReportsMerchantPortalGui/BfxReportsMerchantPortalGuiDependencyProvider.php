@@ -265,7 +265,7 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
     }
 
     /**
-     * @return array<\Xiphias\Zed\BfxReportsMerchantPortalGui\Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface>
+     * @return array<int, \Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface>
      */
     protected function getBfxUserHandlingPlugins(): array
     {
