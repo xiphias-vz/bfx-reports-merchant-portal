@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Controller;
 
-use Generated\Shared\Transfer\BladeFxAuthenticationRequestTransfer;
 use Generated\Shared\Transfer\BladeFxCategoryTransfer;
 use Generated\Shared\Transfer\BladeFxParameterTransfer;
 use Generated\Shared\Transfer\BladeFxReportTransfer;
@@ -13,10 +12,7 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Xiphias\Client\ReportsApi\ReportsApiClient;
 use Xiphias\Shared\Reports\ReportsConstants;
-use Xiphias\Zed\Reports\Communication\Plugins\Authentication\BladeFxSessionHandlerPostAuthenticationPlugin;
-use Xiphias\Zed\Reports\ReportsConfig;
 
 /**
  * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\BfxReportsMerchantPortalGuiCommunicationFactory getFactory();
@@ -167,6 +163,8 @@ class BfxReportsController extends AbstractController
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return array<mixed>
      */
     protected function getCategoryTree(Request $request): array

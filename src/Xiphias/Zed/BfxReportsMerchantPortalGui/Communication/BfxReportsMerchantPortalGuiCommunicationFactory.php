@@ -35,7 +35,7 @@ class BfxReportsMerchantPortalGuiCommunicationFactory extends AbstractCommunicat
     }
 
     /**
-     * @return BfxReportsSalesOrderTabTableConfigurationProvider
+     * @return \Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsSalesOrderTabTableConfigurationProvider
      */
     public function createBfxReportsSalesOrderTabTableConfigurationProvider(): BfxReportsSalesOrderTabTableConfigurationProvider
     {
