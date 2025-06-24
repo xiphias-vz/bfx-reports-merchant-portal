@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiDependencyProvider;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableConfigurationProvider;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsMerchantPortalGuiTableDataProvider;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider\BfxReportsSalesOrderTabTableConfigurationProvider;
 use Xiphias\Zed\Reports\Business\ReportsFacadeInterface;
 
 /**
@@ -31,6 +32,14 @@ class BfxReportsMerchantPortalGuiCommunicationFactory extends AbstractCommunicat
             $this->getGuiTableFactory(),
             $this->getMerchantUserFacade(),
         );
+    }
+
+    /**
+     * @return BfxReportsSalesOrderTabTableConfigurationProvider
+     */
+    public function createBfxReportsSalesOrderTabTableConfigurationProvider(): BfxReportsSalesOrderTabTableConfigurationProvider
+    {
+        return new BfxReportsSalesOrderTabTableConfigurationProvider($this->getGuiTableFactory());
     }
 
     /**
