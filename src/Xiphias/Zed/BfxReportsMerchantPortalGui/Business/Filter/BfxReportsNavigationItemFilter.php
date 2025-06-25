@@ -40,7 +40,7 @@ class BfxReportsNavigationItemFilter implements BfxReportsNavigationItemFilterIn
             unset($navigationItemTransfers['reports:index:index']);
         }
 
-        if (isset($navigationItemTransfers['bfx-reports-merchant-portal-gui:bfx-reports:index'])) {
+        if (isset($navigationItemTransfers['bfx-reports-merchant-portal-gui:bfx-reports:index'])  && !$isMerchantUser) {
             unset($navigationItemTransfers['bfx-reports-merchant-portal-gui:bfx-reports:index']);
         }
 
