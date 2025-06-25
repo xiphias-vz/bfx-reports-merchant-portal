@@ -11,20 +11,19 @@
         <div class="category-sidebar__list-item--text">All categories</div>
     </div>
 
-    @for (category of categoryTreeArray; track category.value.catId) {
-        <div class="category-sidebar__list-item"
-             (click)="handleNodeClick(category.value.catId)"
-             [attr.data-id]="category.value.catId"
-             [attr.data-active]="0"
-             [attr.data-isDefault]="false">
-            <div class="category-sidebar__list-item--text">{{ category.value.catName }}</div>
-        </div>
+    <div class="category-sidebar__list-item"
+         *ngFor="let category of categoryTreeArray"
+         (click)="handleNodeClick(category.value.catId)"
+         [attr.data-id]="category.value.catId"
+         [attr.data-active]="0"
+         [attr.data-isDefault]="false">
+        <div class="category-sidebar__list-item--text">{{ category.value.catName }}</div>
 
-        @if (category.children) {
+        <div *ngIf="category.children">
             <mp-bfx-reports-category-multilevel-node
-                    [nodes]="category.children"
-                    (nodeClicked)="handleNodeClick($event)">
+                [nodes]="category.children"
+                (nodeClicked)="handleNodeClick($event)">
             </mp-bfx-reports-category-multilevel-node>
-        }
-    }
+        </div>
+    </div>
 </div>

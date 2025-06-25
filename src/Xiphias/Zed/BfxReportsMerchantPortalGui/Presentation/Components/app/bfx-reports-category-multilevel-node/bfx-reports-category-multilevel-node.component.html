@@ -1,5 +1,4 @@
-@for (node of nodes; track node.value.catId) {
-<ul class="menu">
+<ul class="menu" *ngFor="let node of nodes">
     <li>
         <div (click)="emitNodeClickEvent(node.value.catId)" class="category-sidebar__list-item"
              [attr.data-id]="node.value.catId"
@@ -7,9 +6,8 @@
              [attr.data-isDefault]="false">
             <div class="category-sidebar__list-item--text">{{ node.value.catName }}</div>
         </div>
-        @if (node.children) {
+        <div *ngIf="node.children">
             <mp-bfx-reports-category-multilevel-node [nodes]="node.children"></mp-bfx-reports-category-multilevel-node>
-        }
+        </div>
     </li>
 </ul>
-}
