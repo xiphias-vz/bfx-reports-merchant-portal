@@ -10,20 +10,20 @@
          [attr.data-isDefault]="true">
         <div class="category-sidebar__list-item--text">All categories</div>
     </div>
+    <ng-container *ngFor="let category of categoryTreeArray">
+        <div class="category-sidebar__list-item"
 
-    <div class="category-sidebar__list-item"
-         *ngFor="let category of categoryTreeArray"
-         (click)="handleNodeClick(category.value.catId)"
-         [attr.data-id]="category.value.catId"
-         [attr.data-active]="0"
-         [attr.data-isDefault]="false">
-        <div class="category-sidebar__list-item--text">{{ category.value.catName }}</div>
-
-        <div *ngIf="category.children">
+             (click)="handleNodeClick(category.value.catId)"
+             [attr.data-id]="category.value.catId"
+             [attr.data-active]="0"
+             [attr.data-isDefault]="false">
+            <div class="category-sidebar__list-item--text">{{ category.value.catName }}</div>
+        </div>
+        <ng-container *ngIf="category.children">
             <mp-bfx-reports-category-multilevel-node
                 [nodes]="category.children"
                 (nodeClicked)="handleNodeClick($event)">
             </mp-bfx-reports-category-multilevel-node>
-        </div>
-    </div>
+        </ng-container>
+    </ng-container>
 </div>
