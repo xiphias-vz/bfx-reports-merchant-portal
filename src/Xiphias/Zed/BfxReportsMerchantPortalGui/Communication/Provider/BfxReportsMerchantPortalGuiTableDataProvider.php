@@ -45,7 +45,6 @@ class BfxReportsMerchantPortalGuiTableDataProvider extends AbstractGuiTableDataP
             ->facade
             ->processGetReportsRequest($this->request, $this->params[ReportsConstants::ATTRIBUTE]);
 
-        $reportTotal = count($reportList);
         $pageSize = $bladeFxCriteriaTransfer->getPageSize();
         $startingIndex = ($bladeFxCriteriaTransfer->getPage() - 1) * $pageSize;
 
@@ -53,6 +52,7 @@ class BfxReportsMerchantPortalGuiTableDataProvider extends AbstractGuiTableDataP
             $reportList = $this->search($reportList, $bladeFxCriteriaTransfer->getSearchTerm());
         }
 
+        $reportTotal = count($reportList);
         $reportList = array_slice($reportList, $startingIndex, $bladeFxCriteriaTransfer->getPageSize());
         /**
          * @var \Generated\Shared\Transfer\BladeFxReportTransfer $reportListItem

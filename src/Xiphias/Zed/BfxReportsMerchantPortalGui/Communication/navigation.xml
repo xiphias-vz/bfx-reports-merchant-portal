@@ -1,0 +1,9 @@
+<bfx-reports-merchant-portal-gui>
+    <label>Blade-Fx</label>
+    <title>Blade-Fx</title>
+    <bundle>bfx-reports-merchant-portal-gui</bundle>
+    <controller>bfx-reports</controller>
+    <action>index</action>
+    <icon>profile</icon>
+    <visible>1</visible>
+</bfx-reports-merchant-portal-gui>
