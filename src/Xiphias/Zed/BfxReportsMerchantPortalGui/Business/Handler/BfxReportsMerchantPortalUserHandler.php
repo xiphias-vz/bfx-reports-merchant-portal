@@ -6,8 +6,13 @@ namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Handler;
 
 use Generated\Shared\Transfer\BladeFxCreateOrUpdateUserCustomFieldsTransfer;
 use Generated\Shared\Transfer\BladeFxCreateOrUpdateUserRequestTransfer;
+use Generated\Shared\Transfer\BladeFxCreateOrUpdateUserResponseTransfer;
+use Generated\Shared\Transfer\BladeFxUpdatePasswordRequestTransfer;
 use Generated\Shared\Transfer\BladeFxTokenTransfer;
 use Generated\Shared\Transfer\UserTransfer;
+use Generated\Shared\Transfer\MessageTransfer;
+use Spryker\Zed\Event\Business\EventFacadeInterface;
+use Spryker\Zed\Messenger\Business\MessengerFacadeInterface;
 use Spryker\Client\Session\SessionClientInterface;
 use Xiphias\Client\ReportsApi\ReportsApiClientInterface;
 use Xiphias\Shared\Reports\ReportsConstants;
@@ -28,6 +33,8 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
         protected ReportsApiClientInterface $reportsApiClient,
         protected BfxReportsMerchantPortalGuiConfig $config,
         protected BfxReportsMerchantPortalGuiRepositoryInterface $repository,
+        protected MessengerFacadeInterface $messengerFacade,
+        protected EventFacadeInterface $eventFacade,
         protected array $bfxUserHandlerPlugins
     ) {
     }
@@ -70,7 +77,29 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
         $requestTransfer = $this->generateAuthenticatedCreateOrUpdateUserOnBladeFxRequestTransfer($userTransfer, $isActive, $isMerchantUser);
 
         try {
-//            $this->reportsApiClient->sendCreateOrUpdateUserOnBfxRequest($requestTransfer);
+            $responseTransfer = $this->reportsApiClient->sendCreateOrUpdateUserOnBfxRequest($requestTransfer);
+
+            if ($isActive) {
+                if ($responseTransfer->getSuccess()) {
+                    $passwordUpdateRequestTransfer = $this->generateAuthenticatedUpdatePasswordOnBladeFxRequest($userTransfer, $responseTransfer);
+                    $this->reportsApiClient->sendUpdatePasswordOnBladeFxRequest($passwordUpdateRequestTransfer);
+
+                    return;
+                }
+
+                if ($responseTransfer->getLicenceIssue()) {
+                    $this->addErrorMessage(
+                        sprintf(
+                            ReportsConstants::USER_CREATE_FAILED_USER_CAP_ERROR,
+                            $this->config->getBladeFxGroupName()
+                        ));
+                    $this->eventFacade->trigger(ReportsConstants::EVENT_USER_POST_SAVE_LICENSE_ISSUE, $userTransfer);
+                }
+            }
+
+            if ($responseTransfer->getErrorMessage()) {
+                $this->addErrorMessage($responseTransfer->getErrorMessage());
+            }
         } catch (Exception $exception) {
             return;
         }
@@ -118,6 +147,22 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
     }
 
     /**
+     * @param UserTransfer $userTransfer
+     * @param BladeFxCreateOrUpdateUserResponseTransfer $responseTransfer
+     *
+     * @return BladeFxUpdatePasswordRequestTransfer
+     */
+    public function generateAuthenticatedUpdatePasswordOnBladeFxRequest(
+        UserTransfer $userTransfer,
+        BladeFxCreateOrUpdateUserResponseTransfer $responseTransfer
+    ): BladeFxUpdatePasswordRequestTransfer
+    {
+        return (new BladeFxUpdatePasswordRequestTransfer())
+            ->setToken((new BladeFxTokenTransfer())->setToken($this->getToken()))
+            ->setBladeFxUserId($responseTransfer->getId())
+            ->setPassword($userTransfer->getPassword());
+    }
+    /**
      * @param \Generated\Shared\Transfer\BladeFxCreateOrUpdateUserRequestTransfer $bladeFxCreateOrUpdateUserRequestTransfer
      * @param int $userId
      * @param bool $isMerchantUser
@@ -137,6 +182,16 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
         }
 
         return $bladeFxCreateOrUpdateUserRequestTransfer;
+    }
+
+    /**
+     * @param string $message
+     *
+     * @return void
+     */
+    protected function addErrorMessage(string $message): void
+    {
+        $this->messengerFacade->addErrorMessage((new MessageTransfer())->setValue($message));
     }
 
     /**
