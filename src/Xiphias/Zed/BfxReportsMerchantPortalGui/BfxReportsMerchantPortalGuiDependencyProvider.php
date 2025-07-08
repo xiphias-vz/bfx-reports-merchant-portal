@@ -38,6 +38,16 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
     /**
      * @var string
      */
+    public const MESSENGER_FACADE = 'MESSENGER_FACADE';
+
+    /**
+     * @var string
+     */
+    public const EVENT_FACADE = 'EVENT_FACADE';
+
+    /**
+     * @var string
+     */
     public const SERVICE_GUI_TABLE_HTTP_DATA_REQUEST_EXECUTOR = 'gui_table_http_data_request_executor';
 
     /**
@@ -101,6 +111,8 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
         $container = $this->addSprykerBladeFxUserFacade($container);
         $container = $this->addBfxUserHandlingPlugins($container);
         $container = $this->addUserFacade($container);
+        $container = $this->addMessengerFacade($container);
+        $container = $this->addEventFacade($container);
 
         return $container;
     }
@@ -229,6 +241,34 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
     {
         $container->set(static::SESSION_CLIENT, function (Container $container) {
             return $container->getLocator()->session()->client();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param Container $container
+     *
+     * @return Container
+     */
+    protected function addMessengerFacade(Container $container): Container
+    {
+        $container->set(static::MESSENGER_FACADE, static function (Container $container) {
+            return $container->getLocator()->messenger()->facade();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param Container $container
+     *
+     * @return Container
+     */
+    protected function addEventFacade(Container $container): Container
+    {
+        $container->set(static::EVENT_FACADE, static function (Container $container) {
+            return $container->getLocator()->event()->facade();
         });
 
         return $container;

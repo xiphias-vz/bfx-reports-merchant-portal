@@ -8,12 +8,15 @@ use Spryker\Client\Session\SessionClientInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use Spryker\Zed\User\Business\UserFacadeInterface;
 use Xiphias\Client\ReportsApi\ReportsApiClientInterface;
+use Spryker\Zed\Event\Business\EventFacadeInterface;
+use Spryker\Zed\Messenger\Business\MessengerFacadeInterface;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiDependencyProvider;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Filter\BfxReportsNavigationItemFilter;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Filter\BfxReportsNavigationItemFilterInterface;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Handler\BfxReportsMerchantPortalUserHandler;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Handler\BfxReportsMerchantPortalUserHandlerInterface;
 use Xiphias\Zed\SprykerBladeFxUser\Business\SprykerBladeFxUserFacadeInterface;
+use Xiphias\Zed\SprykerBladeFxUser\SprykerBladeFxUserDependencyProvider;
 
 /**
  * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiRepositoryInterface getRepository();
@@ -31,6 +34,8 @@ class BfxReportsMerchantPortalGuiBusinessFactory extends AbstractBusinessFactory
             $this->getBladeFxClient(),
             $this->getConfig(),
             $this->getRepository(),
+            $this->getMessengerFacade(),
+            $this->getEventFacade(),
             $this->getBfxUserHandlingPlugins(),
         );
     }
@@ -68,6 +73,22 @@ class BfxReportsMerchantPortalGuiBusinessFactory extends AbstractBusinessFactory
     protected function getSessionClient(): SessionClientInterface
     {
         return $this->getProvidedDependency(BfxReportsMerchantPortalGuiDependencyProvider::SESSION_CLIENT);
+    }
+
+    /**
+     * @return MessengerFacadeInterface
+     */
+    protected function getMessengerFacade(): MessengerFacadeInterface
+    {
+        return $this->getProvidedDependency(SprykerBladeFxUserDependencyProvider::MESSENGER_FACADE);
+    }
+
+    /**
+     * @return EventFacadeInterface
+     */
+    protected function getEventFacade(): EventFacadeInterface
+    {
+        return $this->getProvidedDependency(SprykerBladeFxUserDependencyProvider::EVENT_FACADE);
     }
 
     /**
