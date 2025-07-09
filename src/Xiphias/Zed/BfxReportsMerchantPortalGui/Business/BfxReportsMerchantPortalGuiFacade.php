@@ -58,7 +58,7 @@ class BfxReportsMerchantPortalGuiFacade extends AbstractFacade implements BfxRep
      * @param bool $isMerchantUser
      * @param bool $isActive
      *
-     * @return \Generated\Shared\Transfer\UserTransfer
+     * @return void
      */
     public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser, bool $isActive = true): void
     {
@@ -70,7 +70,7 @@ class BfxReportsMerchantPortalGuiFacade extends AbstractFacade implements BfxRep
      * @param bool $isMerchantUser
      * @param bool $isActive
      *
-     * @return \Generated\Shared\Transfer\UserTransfer
+     * @return void
      */
     public function deleteUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser, bool $isActive = false): void
     {

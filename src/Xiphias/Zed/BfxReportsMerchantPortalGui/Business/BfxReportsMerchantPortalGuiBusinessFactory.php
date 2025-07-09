@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Business;
 
 use Spryker\Client\Session\SessionClientInterface;
+use Spryker\Zed\Event\Business\EventFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use Spryker\Zed\Messenger\Business\MessengerFacadeInterface;
 use Spryker\Zed\User\Business\UserFacadeInterface;
 use Xiphias\Client\ReportsApi\ReportsApiClientInterface;
-use Spryker\Zed\Event\Business\EventFacadeInterface;
-use Spryker\Zed\Messenger\Business\MessengerFacadeInterface;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiDependencyProvider;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Filter\BfxReportsNavigationItemFilter;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Filter\BfxReportsNavigationItemFilterInterface;
@@ -76,7 +76,7 @@ class BfxReportsMerchantPortalGuiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return MessengerFacadeInterface
+     * @return \Spryker\Zed\Messenger\Business\MessengerFacadeInterface
      */
     protected function getMessengerFacade(): MessengerFacadeInterface
     {
@@ -84,7 +84,7 @@ class BfxReportsMerchantPortalGuiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return EventFacadeInterface
+     * @return \Spryker\Zed\Event\Business\EventFacadeInterface
      */
     protected function getEventFacade(): EventFacadeInterface
     {

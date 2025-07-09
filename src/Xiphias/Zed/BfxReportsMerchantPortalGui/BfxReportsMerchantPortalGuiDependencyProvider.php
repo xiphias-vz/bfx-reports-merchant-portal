@@ -247,9 +247,9 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
     }
 
     /**
-     * @param Container $container
+     * @param \Spryker\Zed\Kernel\Container $container
      *
-     * @return Container
+     * @return \Spryker\Zed\Kernel\Container
      */
     protected function addMessengerFacade(Container $container): Container
     {
@@ -261,9 +261,9 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
     }
 
     /**
-     * @param Container $container
+     * @param \Spryker\Zed\Kernel\Container $container
      *
-     * @return Container
+     * @return \Spryker\Zed\Kernel\Container
      */
     protected function addEventFacade(Container $container): Container
     {

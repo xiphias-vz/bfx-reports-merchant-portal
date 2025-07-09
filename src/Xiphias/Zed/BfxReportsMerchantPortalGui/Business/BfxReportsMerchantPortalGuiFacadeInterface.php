@@ -41,7 +41,7 @@ interface BfxReportsMerchantPortalGuiFacadeInterface
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      * @param bool $isMerchantUser
      *
-     * @return \Generated\Shared\Transfer\UserTransfer
+     * @return void
      */
     public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser): void;
 
@@ -49,7 +49,7 @@ interface BfxReportsMerchantPortalGuiFacadeInterface
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      * @param bool $isMerchantUser
      *
-     * @return \Generated\Shared\Transfer\UserTransfer
+     * @return void
      */
     public function deleteUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser): void;
 

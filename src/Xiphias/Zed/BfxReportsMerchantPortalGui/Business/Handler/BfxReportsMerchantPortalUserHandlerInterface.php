@@ -20,7 +20,7 @@ interface BfxReportsMerchantPortalUserHandlerInterface
      * @param bool $isActive
      * @param bool $isMerchantUser
      *
-     * @return \Generated\Shared\Transfer\UserTransfer
+     * @return void
      */
     public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, bool $isActive = true, bool $isMerchantUser = false): void;
 
@@ -29,7 +29,7 @@ interface BfxReportsMerchantPortalUserHandlerInterface
      * @param bool $isMerchantUser
      * @param bool $isActive
      *
-     * @return \Generated\Shared\Transfer\UserTransfer
+     * @return void
      */
     public function deleteUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser, bool $isActive = false): void;
 

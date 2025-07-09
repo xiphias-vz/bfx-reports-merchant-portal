@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, ViewChild, viewChild, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input, ViewChild, ViewEncapsulation} from "@angular/core";
 import { TableConfig } from '@spryker/table';
 import { CoreTableComponent } from '@spryker/table';
 
