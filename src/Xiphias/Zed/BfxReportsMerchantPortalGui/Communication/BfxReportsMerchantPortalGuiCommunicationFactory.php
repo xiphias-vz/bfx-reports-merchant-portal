@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication;
 
+use Spryker\Client\Session\SessionClientInterface;
 use Spryker\Shared\GuiTable\GuiTableFactoryInterface;
 use Spryker\Shared\GuiTable\Http\GuiTableDataRequestExecutorInterface;
 use Spryker\Shared\ZedUi\ZedUiFactoryInterface;
@@ -63,6 +64,14 @@ class BfxReportsMerchantPortalGuiCommunicationFactory extends AbstractCommunicat
     public function getReportsFacade(): ReportsFacadeInterface
     {
         return $this->getProvidedDependency(BfxReportsMerchantPortalGuiDependencyProvider::REPORTS_FACADE);
+    }
+
+    /**
+     * @return \Spryker\Client\Session\SessionClientInterface;
+     */
+    public function getSessionClient(): SessionClientInterface
+    {
+        return $this->getProvidedDependency(BfxReportsMerchantPortalGuiDependencyProvider::SESSION_CLIENT);
     }
 
     /**

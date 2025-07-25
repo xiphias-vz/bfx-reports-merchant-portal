@@ -94,6 +94,7 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
         $container = $this->addGuiTableFactory($container);
         $container = $this->addGuiTableHttpDataRequestHandler($container);
         $container = $this->addZedUiFactory($container);
+        $container = $this->addSessionClient($container);
         $container = $this->addRequestStackService($container);
 
         return $container;
