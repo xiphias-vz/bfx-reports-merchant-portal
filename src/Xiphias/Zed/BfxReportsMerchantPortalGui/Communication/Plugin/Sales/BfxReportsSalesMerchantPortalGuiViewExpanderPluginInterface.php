@@ -6,7 +6,7 @@ namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\Sales;
 
 use Generated\Shared\Transfer\MerchantOrderTransfer;
 
-interface BfxReportsSalesTableConfigurationViewExpanderPluginInterface
+interface BfxReportsSalesMerchantPortalGuiViewExpanderPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\MerchantOrderTransfer $merchantOrderTransfer

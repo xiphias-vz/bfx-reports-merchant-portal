@@ -10,7 +10,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\BfxReportsMerchantPortalGuiCommunicationFactory getFactory();
  */
-class BfxReportsSalesTableConfigurationViewExpanderPlugin extends AbstractPlugin implements BfxReportsSalesTableConfigurationViewExpanderPluginInterface
+class BfxReportsSalesTableConfigurationViewExpanderPlugin extends AbstractPlugin implements BfxReportsSalesMerchantPortalGuiViewExpanderPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\MerchantOrderTransfer $merchantOrderTransfer
