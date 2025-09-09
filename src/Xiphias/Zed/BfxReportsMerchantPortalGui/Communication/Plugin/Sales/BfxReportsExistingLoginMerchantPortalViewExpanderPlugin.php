@@ -8,12 +8,12 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 class BfxReportsExistingLoginMerchantPortalViewExpanderPlugin extends AbstractPlugin implements BfxReportsSalesMerchantPortalGuiViewExpanderPluginInterface
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Generated\Shared\Transfer\MerchantOrderTransfer $merchantOrderTransfer
      * @param array $viewData
      *
      * @return array<string, string>
      */
-    public function expand(MerchantOrderTransfer $request, array $viewData): array
+    public function expand(MerchantOrderTransfer $merchantOrderTransfer, array $viewData): array
     {
         $viewData['isLoggedInBladeFx'] = $this->getFactory()->getSessionClient()->has($this->getFactory()->getConfig()->getBfxTokenSessionKey());
 
