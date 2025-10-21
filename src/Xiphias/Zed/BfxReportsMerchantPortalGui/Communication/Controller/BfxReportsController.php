@@ -43,7 +43,7 @@ class BfxReportsController extends AbstractController
     {
         return $this->getFactory()->getGuiTableHttpDataRequestExecutor()->execute(
             $request,
-            $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider($request, $this->buildParams()),
+            $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider($request, $this->buildParams(ReportsConstants::BLADE_FX_MP_REPORTS)),
             $this->getFactory()->createBfxReportsMerchantPortalGuiTableConfigurationProvider()->getConfiguration(),
         );
     }
@@ -57,7 +57,7 @@ class BfxReportsController extends AbstractController
     {
         return $this->getFactory()->getGuiTableHttpDataRequestExecutor()->execute(
             $request,
-            $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider($request, $this->buildParams()),
+            $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider($request, $this->buildParams(ReportsConstants::BLADE_FX_MP_ORDER_ATTRIBUTE)),
             $this->getFactory()->createBfxReportsMerchantPortalGuiTableConfigurationProvider()->getConfiguration(),
         );
     }
@@ -186,7 +186,7 @@ class BfxReportsController extends AbstractController
      */
     protected function buildParams(string $attribute = ''): array
     {
-        return [ReportsConstants::ATTRIBUTE => ''];
+        return [ReportsConstants::ATTRIBUTE => $attribute];
     }
 
     /**
