@@ -15,7 +15,7 @@ use Generated\Shared\Transfer\UserTransfer;
 use Spryker\Client\Session\SessionClientInterface;
 use Spryker\Zed\Event\Business\EventFacadeInterface;
 use Spryker\Zed\Messenger\Business\MessengerFacadeInterface;
-use Xiphias\Client\ReportsApi\ReportsApiClientInterface;
+use Xiphias\BladeFxApi\ReportsApiClientInterface;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConstants;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiRepositoryInterface;
@@ -24,7 +24,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
 {
     /**
      * @param \Spryker\Client\Session\SessionClientInterface $sessionClient
-     * @param \Xiphias\Client\ReportsApi\ReportsApiClientInterface $reportsApiClient
+     * @param \Xiphias\BladeFxApi\ReportsApiClientInterface $reportsApiClient
      * @param \Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig $config
      * @param \Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiRepositoryInterface $repository
      * @param array<\Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface> $bfxUserHandlerPlugins
