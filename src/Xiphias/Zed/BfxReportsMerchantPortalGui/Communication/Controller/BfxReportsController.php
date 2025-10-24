@@ -12,7 +12,7 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Xiphias\Shared\Reports\ReportsConstants;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConstants;
 
 /**
  * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\BfxReportsMerchantPortalGuiCommunicationFactory getFactory();
@@ -186,7 +186,7 @@ class BfxReportsController extends AbstractController
      */
     protected function buildParams(string $attribute = ''): array
     {
-        return [ReportsConstants::ATTRIBUTE => ''];
+        return [BfxReportsMerchantPortalGuiConstants::ATTRIBUTE => ''];
     }
 
     /**

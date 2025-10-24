@@ -6,7 +6,6 @@ declare(strict_types=1);
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui;
 
 use Spryker\Zed\Kernel\AbstractBundleConfig;
-use Xiphias\Shared\Reports\ReportsConstants;
 
 class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
 {
@@ -20,7 +19,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getBladeFxGroupName(): string
     {
-        return ReportsConstants::BLADE_FX_GROUP_NAME;
+        return BfxReportsMerchantPortalGuiConstants::BLADE_FX_GROUP_NAME;
     }
 
     /**
@@ -36,7 +35,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getSprykerUserIdKey(): string
     {
-        return ReportsConstants::SPRYKER_USER_ID_KEY;
+        return BfxReportsMerchantPortalGuiConstants::SPRYKER_USER_ID_KEY;
     }
 
     /**
@@ -44,7 +43,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getMerchantIdKey(): string
     {
-        return ReportsConstants::MERCHANT_ID_KEY;
+        return BfxReportsMerchantPortalGuiConstants::MERCHANT_ID_KEY;
     }
 
     /**
@@ -52,7 +51,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getBfxTokenSessionKey(): string
     {
-        return ReportsConstants::BFX_TOKEN_SESSION_KEY;
+        return BfxReportsMerchantPortalGuiConstants::BFX_TOKEN_SESSION_KEY;
     }
 
     /**
@@ -60,7 +59,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getBfxUserCompanyIdSessionKey(): string
     {
-        return ReportsConstants::BFX_USER_COMPANY_ID_SESSION_KEY;
+        return BfxReportsMerchantPortalGuiConstants::BFX_USER_COMPANY_ID_SESSION_KEY;
     }
 
     /**
@@ -68,6 +67,6 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getBfxUserLanguageIdSessionKey(): string
     {
-        return ReportsConstants::BFX_USER_LANGUAGE_ID_SESSION_KEY;
+        return BfxReportsMerchantPortalGuiConstants::BFX_USER_LANGUAGE_ID_SESSION_KEY;
     }
 }
