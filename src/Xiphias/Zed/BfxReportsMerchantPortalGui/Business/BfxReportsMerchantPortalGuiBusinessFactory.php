@@ -9,7 +9,7 @@ use Spryker\Zed\Event\Business\EventFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use Spryker\Zed\Messenger\Business\MessengerFacadeInterface;
 use Spryker\Zed\User\Business\UserFacadeInterface;
-use Xiphias\Client\ReportsApi\ReportsApiClientInterface;
+use Xiphias\BladeFxApi\ReportsApiClientInterface;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiDependencyProvider;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Filter\BfxReportsNavigationItemFilter;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Filter\BfxReportsNavigationItemFilterInterface;
@@ -52,7 +52,7 @@ class BfxReportsMerchantPortalGuiBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Xiphias\Client\ReportsApi\ReportsApiClientInterface
+     * @return \Xiphias\BladeFxApi\ReportsApiClientInterface
      */
     protected function getBladeFxClient(): ReportsApiClientInterface
     {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Controller;
 
-use Generated\Shared\Transfer\BladeFxCategoryTransfer;
+use Xiphias\BladeFxApi\DTO\BladeFxCategoryTransfer;
 use Generated\Shared\Transfer\BladeFxParameterTransfer;
 use Generated\Shared\Transfer\BladeFxReportTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
