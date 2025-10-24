@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui;
 
 use Spryker\Zed\Kernel\AbstractBundleConfig;
+use Xiphias\Shared\Reports\ReportsConstants;
 
 class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
 {
@@ -68,5 +69,29 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
     public function getBfxUserLanguageIdSessionKey(): string
     {
         return BfxReportsMerchantPortalGuiConstants::BFX_USER_LANGUAGE_ID_SESSION_KEY;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHostUrl(): string
+    {
+        return $this->get(BfxReportsMerchantPortalGuiConstants::BLADE_FX_REPORTS_HOST);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultUsername(): string
+    {
+        return $this->get(BfxReportsMerchantPortalGuiConstants::BLADE_FX_SERVICE)[BfxReportsMerchantPortalGuiConstants::BLADE_FX_DEFAULT_USER_NAME];
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultPassword(): string
+    {
+        return $this->get(BfxReportsMerchantPortalGuiConstants::BLADE_FX_SERVICE)[BfxReportsMerchantPortalGuiConstants::BLADE_FX_DEFAULT_PASSWORD];
     }
 }
