@@ -38,7 +38,8 @@
         }
     ],
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.1",
+        "xiphias/bfx-reports": "*"
     },
     "require-dev": {
         "spryker/code-sniffer": "*",
