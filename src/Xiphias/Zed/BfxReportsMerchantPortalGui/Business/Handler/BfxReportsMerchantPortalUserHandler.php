@@ -6,10 +6,10 @@ namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Handler;
 
 use Exception;
 use Generated\Shared\Transfer\BladeFxCreateOrUpdateUserCustomFieldsTransfer;
-use Generated\Shared\Transfer\BladeFxCreateOrUpdateUserRequestTransfer;
-use Generated\Shared\Transfer\BladeFxCreateOrUpdateUserResponseTransfer;
-use Generated\Shared\Transfer\BladeFxTokenTransfer;
-use Generated\Shared\Transfer\BladeFxUpdatePasswordRequestTransfer;
+use Xiphias\BladeFxApi\DTO\BladeFxCreateOrUpdateUserRequestTransfer;
+use Xiphias\BladeFxApi\DTO\BladeFxCreateOrUpdateUserResponseTransfer;
+use Xiphias\BladeFxApi\DTO\BladeFxTokenTransfer;
+use Xiphias\BladeFxApi\DTO\BladeFxUpdatePasswordRequestTransfer;
 use Generated\Shared\Transfer\MessageTransfer;
 use Generated\Shared\Transfer\UserTransfer;
 use Spryker\Client\Session\SessionClientInterface;
@@ -119,7 +119,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
      * @param bool $isActive
      * @param bool $isMerchantUser
      *
-     * @return \Generated\Shared\Transfer\BladeFxCreateOrUpdateUserRequestTransfer
+     * @return \Xiphias\BladeFxApi\DTO\BladeFxCreateOrUpdateUserRequestTransfer
      */
     public function generateAuthenticatedCreateOrUpdateUserOnBladeFxRequestTransfer(
         UserTransfer $userTransfer,
@@ -127,7 +127,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
         bool $isMerchantUser = false
     ): BladeFxCreateOrUpdateUserRequestTransfer {
         $bladeFxCreateOrUpdateUserRequestTransfer = (new BladeFxCreateOrUpdateUserRequestTransfer())
-            ->setToken((new BladeFxTokenTransfer())->setToken($this->getToken()))
+            ->setToken((new BladeFxTokenTransfer())->setAccessToken($this->getToken()))
             ->setEmail($userTransfer->getUsername())
             ->setFirstName($userTransfer->getFirstName())
             ->setLastName($userTransfer->getLastName())
@@ -145,26 +145,26 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
 
     /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
-     * @param \Generated\Shared\Transfer\BladeFxCreateOrUpdateUserResponseTransfer $responseTransfer
+     * @param \Xiphias\BladeFxApi\DTO\BladeFxCreateOrUpdateUserResponseTransfer $responseTransfer
      *
-     * @return \Generated\Shared\Transfer\BladeFxUpdatePasswordRequestTransfer
+     * @return \Xiphias\BladeFxApi\DTO\BladeFxUpdatePasswordRequestTransfer
      */
     public function generateAuthenticatedUpdatePasswordOnBladeFxRequest(
         UserTransfer $userTransfer,
         BladeFxCreateOrUpdateUserResponseTransfer $responseTransfer
     ): BladeFxUpdatePasswordRequestTransfer {
         return (new BladeFxUpdatePasswordRequestTransfer())
-            ->setToken((new BladeFxTokenTransfer())->setToken($this->getToken()))
+            ->setToken((new BladeFxTokenTransfer())->setAccessToken($this->getToken()))
             ->setBladeFxUserId($responseTransfer->getId())
             ->setPassword($userTransfer->getPassword());
     }
 
     /**
-     * @param \Generated\Shared\Transfer\BladeFxCreateOrUpdateUserRequestTransfer $bladeFxCreateOrUpdateUserRequestTransfer
+     * @param \Xiphias\BladeFxApi\DTO\BladeFxCreateOrUpdateUserRequestTransfer $bladeFxCreateOrUpdateUserRequestTransfer
      * @param int $userId
      * @param bool $isMerchantUser
      *
-     * @return \Generated\Shared\Transfer\BladeFxCreateOrUpdateUserRequestTransfer
+     * @return \Xiphias\BladeFxApi\DTO\BladeFxCreateOrUpdateUserRequestTransfer
      */
     protected function appendMerchantIdToRequest(
         BladeFxCreateOrUpdateUserRequestTransfer $bladeFxCreateOrUpdateUserRequestTransfer,
