@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Business\Handler;
 
 use Exception;
-use Generated\Shared\Transfer\BladeFxCreateOrUpdateUserCustomFieldsTransfer;
+use Xiphias\BladeFxApi\DTO\BladeFxCreateOrUpdateUserCustomFieldsTransfer;
 use Xiphias\BladeFxApi\DTO\BladeFxCreateOrUpdateUserRequestTransfer;
 use Xiphias\BladeFxApi\DTO\BladeFxCreateOrUpdateUserResponseTransfer;
 use Xiphias\BladeFxApi\DTO\BladeFxTokenTransfer;
