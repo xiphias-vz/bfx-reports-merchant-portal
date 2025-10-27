@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui;
 
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 use Xiphias\BladeFxApi\BladeFxApiClient;
@@ -18,6 +19,8 @@ use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\User\UpdateBfxU
  */
 class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    use LoggerTrait;
+
     /**
      * @var string
      */
