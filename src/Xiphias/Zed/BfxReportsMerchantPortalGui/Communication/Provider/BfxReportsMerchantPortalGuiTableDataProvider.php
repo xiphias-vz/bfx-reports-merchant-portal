@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider;
 
 use Generated\Shared\Transfer\BladeFxCriteriaTransfer;
-use Generated\Shared\Transfer\BladeFxReportTransfer;
+use Xiphias\BladeFxApi\DTO\BladeFxReportTransfer;
 use Generated\Shared\Transfer\GuiTableDataRequestTransfer;
 use Generated\Shared\Transfer\GuiTableDataResponseTransfer;
 use Generated\Shared\Transfer\GuiTableRowDataResponseTransfer;
@@ -55,7 +55,7 @@ class BfxReportsMerchantPortalGuiTableDataProvider extends AbstractGuiTableDataP
         $reportTotal = count($reportList);
         $reportList = array_slice($reportList, $startingIndex, $bladeFxCriteriaTransfer->getPageSize());
         /**
-         * @var \Generated\Shared\Transfer\BladeFxReportTransfer $reportListItem
+         * @var \Xiphias\BladeFxApi\DTO\BladeFxReportTransfer $reportListItem
          */
         foreach ($reportList as $reportListItem) {
             $responseData = [
@@ -97,7 +97,7 @@ class BfxReportsMerchantPortalGuiTableDataProvider extends AbstractGuiTableDataP
     {
         $searchRows = [];
         foreach ($rows as $row) {
-            /** @var \Generated\Shared\Transfer\BladeFxReportTransfer $row */
+            /** @var \Xiphias\BladeFxApi\DTO\BladeFxReportTransfer $row */
             if (str_contains(strtolower($row->getRepName()), strtolower($searchTerm))) {
                 $searchRows[] = $row;
             }
