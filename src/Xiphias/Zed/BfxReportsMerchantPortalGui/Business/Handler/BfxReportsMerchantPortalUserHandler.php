@@ -15,23 +15,26 @@ use Generated\Shared\Transfer\UserTransfer;
 use Spryker\Client\Session\SessionClientInterface;
 use Spryker\Zed\Event\Business\EventFacadeInterface;
 use Spryker\Zed\Messenger\Business\MessengerFacadeInterface;
-use Xiphias\BladeFxApi\ReportsApiClientInterface;
+use Xiphias\BladeFxApi\BladeFxApiClientInterface;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConstants;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiRepositoryInterface;
+use Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface;
 
 class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUserHandlerInterface
 {
     /**
-     * @param \Spryker\Client\Session\SessionClientInterface $sessionClient
-     * @param \Xiphias\BladeFxApi\ReportsApiClientInterface $reportsApiClient
-     * @param \Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig $config
-     * @param \Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiRepositoryInterface $repository
-     * @param array<\Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface> $bfxUserHandlerPlugins
+     * @param SessionClientInterface $sessionClient
+     * @param BladeFxApiClientInterface $reportsApiClient
+     * @param BfxReportsMerchantPortalGuiConfig $config
+     * @param BfxReportsMerchantPortalGuiRepositoryInterface $repository
+     * @param MessengerFacadeInterface $messengerFacade
+     * @param EventFacadeInterface $eventFacade
+     * @param array<BfxUserHandlerPluginInterface> $bfxUserHandlerPlugins
      */
     public function __construct(
         protected SessionClientInterface $sessionClient,
-        protected ReportsApiClientInterface $reportsApiClient,
+        protected BladeFxApiClientInterface $reportsApiClient,
         protected BfxReportsMerchantPortalGuiConfig $config,
         protected BfxReportsMerchantPortalGuiRepositoryInterface $repository,
         protected MessengerFacadeInterface $messengerFacade,

@@ -9,7 +9,7 @@ use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 use Xiphias\BladeFxApi\BladeFxApiClient;
-use Xiphias\BladeFxApi\ReportsApiClientInterface as BladeFxApiClientInterface;
+use Xiphias\BladeFxApi\BladeFxApiClientInterface;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\User\CreateBfxUserOnBfxMerchantPortalPlugin;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\User\DeleteBfxUserOnBfxMerchantPortalPlugin;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\User\UpdateBfxUserOnBfxMerchantPortalPlugin;
