@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConstants;
+use Xiphias\Shared\Reports\ReportsConstants;
 
 /**
  * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\BfxReportsMerchantPortalGuiCommunicationFactory getFactory();
@@ -43,7 +44,7 @@ class BfxReportsController extends AbstractController
     {
         return $this->getFactory()->getGuiTableHttpDataRequestExecutor()->execute(
             $request,
-            $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider($request, $this->buildParams()),
+            $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider($request, $this->buildParams(ReportsConstants::BLADE_FX_MP_REPORTS)),
             $this->getFactory()->createBfxReportsMerchantPortalGuiTableConfigurationProvider()->getConfiguration(),
         );
     }
@@ -57,7 +58,7 @@ class BfxReportsController extends AbstractController
     {
         return $this->getFactory()->getGuiTableHttpDataRequestExecutor()->execute(
             $request,
-            $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider($request, $this->buildParams()),
+            $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider($request, $this->buildParams(ReportsConstants::BLADE_FX_MP_ORDER_ATTRIBUTE)),
             $this->getFactory()->createBfxReportsMerchantPortalGuiTableConfigurationProvider()->getConfiguration(),
         );
     }
@@ -186,7 +187,7 @@ class BfxReportsController extends AbstractController
      */
     protected function buildParams(string $attribute = ''): array
     {
-        return [BfxReportsMerchantPortalGuiConstants::ATTRIBUTE => ''];
+        return [ReportsConstants::ATTRIBUTE =>  $attribute];
     }
 
     /**
