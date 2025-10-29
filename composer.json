@@ -39,8 +39,7 @@
     ],
     "require": {
         "php": ">=8.1",
-        "xiphias/bfx-reports": "dev-master",
-        "xiphias/bladefx-api-php": "dev-main"
+        "xiphias/bfx-reports": "dev-master"
     },
     "require-dev": {
         "spryker/code-sniffer": "*",
