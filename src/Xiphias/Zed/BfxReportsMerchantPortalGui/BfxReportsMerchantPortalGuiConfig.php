@@ -20,7 +20,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getBladeFxGroupName(): string
     {
-        return BfxReportsMerchantPortalGuiConstants::BLADE_FX_GROUP_NAME;
+        return ReportsConstants::BLADE_FX_GROUP_NAME;
     }
 
     /**
@@ -36,7 +36,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getSprykerUserIdKey(): string
     {
-        return BfxReportsMerchantPortalGuiConstants::SPRYKER_USER_ID_KEY;
+        return ReportsConstants::SPRYKER_USER_ID_KEY;
     }
 
     /**
@@ -44,7 +44,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getMerchantIdKey(): string
     {
-        return BfxReportsMerchantPortalGuiConstants::MERCHANT_ID_KEY;
+        return ReportsConstants::MERCHANT_ID_KEY;
     }
 
     /**
@@ -52,7 +52,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getBfxTokenSessionKey(): string
     {
-        return BfxReportsMerchantPortalGuiConstants::BFX_TOKEN_SESSION_KEY;
+        return ReportsConstants::BFX_TOKEN_SESSION_KEY;
     }
 
     /**
@@ -60,7 +60,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getBfxUserCompanyIdSessionKey(): string
     {
-        return BfxReportsMerchantPortalGuiConstants::BFX_USER_COMPANY_ID_SESSION_KEY;
+        return ReportsConstants::BFX_USER_COMPANY_ID_SESSION_KEY;
     }
 
     /**
@@ -68,7 +68,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getBfxUserLanguageIdSessionKey(): string
     {
-        return BfxReportsMerchantPortalGuiConstants::BFX_USER_LANGUAGE_ID_SESSION_KEY;
+        return ReportsConstants::BFX_USER_LANGUAGE_ID_SESSION_KEY;
     }
 
     /**
@@ -76,7 +76,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getHostUrl(): string
     {
-        return $this->get(BfxReportsMerchantPortalGuiConstants::BLADE_FX_REPORTS_HOST);
+        return $this->get(ReportsConstants::BLADE_FX_REPORTS_HOST);
     }
 
     /**
@@ -84,7 +84,7 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getDefaultUsername(): string
     {
-        return $this->get(BfxReportsMerchantPortalGuiConstants::BLADE_FX_SERVICE)[BfxReportsMerchantPortalGuiConstants::BLADE_FX_DEFAULT_USER_NAME];
+        return $this->get(ReportsConstants::BLADE_FX_SERVICE)[ReportsConstants::BLADE_FX_DEFAULT_USER_NAME];
     }
 
     /**
@@ -92,6 +92,6 @@ class BfxReportsMerchantPortalGuiConfig extends AbstractBundleConfig
      */
     public function getDefaultPassword(): string
     {
-        return $this->get(BfxReportsMerchantPortalGuiConstants::BLADE_FX_SERVICE)[BfxReportsMerchantPortalGuiConstants::BLADE_FX_DEFAULT_PASSWORD];
+        return $this->get(ReportsConstants::BLADE_FX_SERVICE)[ReportsConstants::BLADE_FX_DEFAULT_PASSWORD];
     }
 }

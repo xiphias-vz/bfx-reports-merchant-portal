@@ -12,7 +12,7 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConstants;
+use Xiphias\Shared\Reports\ReportsConstants;
 use Xiphias\Shared\Reports\ReportsConstants;
 
 /**

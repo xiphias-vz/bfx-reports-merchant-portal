@@ -13,7 +13,7 @@ use Spryker\Shared\GuiTable\DataProvider\AbstractGuiTableDataProvider;
 use Spryker\Shared\GuiTable\DataProvider\GuiTableDataProviderInterface;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 use Symfony\Component\HttpFoundation\Request;
-use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConstants;
+use Xiphias\Shared\Reports\ReportsConstants;
 use Xiphias\Zed\Reports\Business\ReportsFacadeInterface;
 
 class BfxReportsMerchantPortalGuiTableDataProvider extends AbstractGuiTableDataProvider implements GuiTableDataProviderInterface
@@ -43,7 +43,7 @@ class BfxReportsMerchantPortalGuiTableDataProvider extends AbstractGuiTableDataP
 
         $reportList = $this
             ->facade
-            ->processGetReportsRequest($this->request, $this->params[BfxReportsMerchantPortalGuiConstants::ATTRIBUTE]);
+            ->processGetReportsRequest($this->request, $this->params[ReportsConstants::ATTRIBUTE]);
 
         $pageSize = $bladeFxCriteriaTransfer->getPageSize();
         $startingIndex = ($bladeFxCriteriaTransfer->getPage() - 1) * $pageSize;

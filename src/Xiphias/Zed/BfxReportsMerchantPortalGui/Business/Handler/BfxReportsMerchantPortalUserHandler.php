@@ -17,7 +17,7 @@ use Spryker\Zed\Event\Business\EventFacadeInterface;
 use Spryker\Zed\Messenger\Business\MessengerFacadeInterface;
 use Xiphias\BladeFxApi\BladeFxApiClientInterface;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig;
-use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConstants;
+use Xiphias\Shared\Reports\ReportsConstants;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiRepositoryInterface;
 use Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface;
 
@@ -92,8 +92,8 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
                 }
 
                 if ($responseTransfer->getLicenceIssue()) {
-                    $this->addErrorMessage(BfxReportsMerchantPortalGuiConstants::USER_CREATE_FAILED_USER_CAP_ERROR);
-                    $this->eventFacade->trigger(BfxReportsMerchantPortalGuiConstants::EVENT_USER_POST_SAVE_LICENSE_ISSUE, $userTransfer);
+                    $this->addErrorMessage(ReportsConstants::USER_CREATE_FAILED_USER_CAP_ERROR);
+                    $this->eventFacade->trigger(ReportsConstants::EVENT_USER_POST_SAVE_LICENSE_ISSUE, $userTransfer);
                 }
             }
 
@@ -135,7 +135,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
             ->setFirstName($userTransfer->getFirstName())
             ->setLastName($userTransfer->getLastName())
             ->setPassword($userTransfer->getPassword())
-            ->setRoleName($isMerchantUser ? BfxReportsMerchantPortalGuiConstants::SPRYKER_MP_ROLE : BfxReportsMerchantPortalGuiConstants::SRYKER_BO_ROLE)
+            ->setRoleName($isMerchantUser ? ReportsConstants::SPRYKER_MP_ROLE : ReportsConstants::SRYKER_BO_ROLE)
             ->setCompanyId($this->getUserIdCompany())
             ->setLanguageId($this->getUserIdLanguage())
             ->setIsActive($isActive)

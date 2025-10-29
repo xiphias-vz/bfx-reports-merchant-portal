@@ -10,7 +10,7 @@ use Generated\Shared\Transfer\GuiTableConfigurationTransfer;
 use Generated\Shared\Transfer\MerchantOrderTransfer;
 use Spryker\Shared\GuiTable\Configuration\Builder\GuiTableConfigurationBuilderInterface;
 use Spryker\Shared\GuiTable\GuiTableFactoryInterface;
-use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConstants;
+use Xiphias\Shared\Reports\ReportsConstants;
 
 class BfxReportsSalesOrderTabTableConfigurationProvider
 {
@@ -79,7 +79,7 @@ class BfxReportsSalesOrderTabTableConfigurationProvider
             'download-pdf',
             'Download as PDF',
             sprintf(
-                '/bfx-reports-merchant-portal-gui/bfx-reports/report-download-response-builder?repId=${row.%s}&repName=${row.%s}&format=pdf&paramName=' . BfxReportsMerchantPortalGuiConstants::BLADE_FX_ORDER_PARAM_NAME . '&paramValue=%s',
+                '/bfx-reports-merchant-portal-gui/bfx-reports/report-download-response-builder?repId=${row.%s}&repName=${row.%s}&format=pdf&paramName=' . ReportsConstants::BLADE_FX_ORDER_PARAM_NAME . '&paramValue=%s',
                 BladeFxReportTransfer::REP_ID,
                 BladeFxReportTransfer::REP_NAME,
                 $idOrder,
@@ -90,7 +90,7 @@ class BfxReportsSalesOrderTabTableConfigurationProvider
             'report-preview',
             'Preview',
             sprintf(
-                '/bfx-reports-merchant-portal-gui/bfx-reports/report-preview-with-parameter?repId=${row.%s}&paramName=' . BfxReportsMerchantPortalGuiConstants::BLADE_FX_ORDER_PARAM_NAME . '&paramValue=%s',
+                '/bfx-reports-merchant-portal-gui/bfx-reports/report-preview-with-parameter?repId=${row.%s}&paramName=' . ReportsConstants::BLADE_FX_ORDER_PARAM_NAME . '&paramValue=%s',
                 BladeFxReportTransfer::REP_ID,
                 $idOrder,
             ),
