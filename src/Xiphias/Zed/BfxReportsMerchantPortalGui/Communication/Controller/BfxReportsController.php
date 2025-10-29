@@ -187,7 +187,7 @@ class BfxReportsController extends AbstractController
      */
     protected function buildParams(string $attribute = ''): array
     {
-        return [ReportsConstants::ATTRIBUTE =>  $attribute];
+        return [ReportsConstants::ATTRIBUTE => $attribute];
     }
 
     /**
