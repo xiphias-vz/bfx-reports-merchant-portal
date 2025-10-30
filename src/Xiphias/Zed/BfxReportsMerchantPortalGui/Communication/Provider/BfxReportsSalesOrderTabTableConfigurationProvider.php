@@ -7,9 +7,10 @@ namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider;
 
 use Generated\Shared\Transfer\BladeFxReportTransfer;
 use Generated\Shared\Transfer\GuiTableConfigurationTransfer;
-use Generated\Shared\Transfer\MerchantOrderTransfer;
+use Spryker\Service\UtilText\Model\Url\Url;
 use Spryker\Shared\GuiTable\Configuration\Builder\GuiTableConfigurationBuilderInterface;
 use Spryker\Shared\GuiTable\GuiTableFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Xiphias\Shared\Reports\ReportsConstants;
 
 class BfxReportsSalesOrderTabTableConfigurationProvider
@@ -32,16 +33,18 @@ class BfxReportsSalesOrderTabTableConfigurationProvider
      *
      * @return \Generated\Shared\Transfer\GuiTableConfigurationTransfer
      */
-    public function getConfiguration(MerchantOrderTransfer $merchantOrderTransfer): GuiTableConfigurationTransfer
+    public function getConfiguration(Request $request): GuiTableConfigurationTransfer
     {
-        $idOrder = $merchantOrderTransfer->getIdOrder();
+        $idOrder = (int)$request->query->get('merchant-order-id');
+        $queryParams = $this->generateQueryParams($request);
+        $url = Url::generate('/bfx-reports-merchant-portal-gui/bfx-reports/sales-reports-table-data', $queryParams)->build();
         $guiTableConfigurationBuilder = $this->guiTableFactory->createConfigurationBuilder();
 
         $guiTableConfigurationBuilder = $this->addColumns($guiTableConfigurationBuilder);
         $guiTableConfigurationBuilder = $this->addRowActions($guiTableConfigurationBuilder, $idOrder);
 
         $guiTableConfigurationBuilder
-            ->setDataSourceUrl('/bfx-reports-merchant-portal-gui/bfx-reports/sales-reports-table-data')
+            ->setDataSourceUrl($url)
             ->setSearchPlaceholder('Search by report name')
             ->setIsPaginationEnabled(false)
             ->setDefaultPageSize(25);
@@ -97,5 +100,21 @@ class BfxReportsSalesOrderTabTableConfigurationProvider
         )->setRowClickAction('report-preview');
 
         return $guiTableConfigurationBuilder;
+    }
+
+    /**
+     * @return array
+     */
+    protected function generateQueryParams(Request $request): array
+    {
+        $queryParams = [];
+
+        $urlParams = $request->query->all();
+
+        foreach ($urlParams as $key => $value) {
+            $queryParams[$key] = $value;
+        }
+
+        return $queryParams;
     }
 }

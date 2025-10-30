@@ -6,6 +6,7 @@ namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\Sales;
 
 use Generated\Shared\Transfer\MerchantOrderTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\BfxReportsMerchantPortalGuiCommunicationFactory getFactory();
@@ -18,9 +19,9 @@ class BfxReportsSalesTableConfigurationViewExpanderPlugin extends AbstractPlugin
      *
      * @return array
      */
-    public function expand(MerchantOrderTransfer $merchantOrderTransfer, array $viewData): array
+    public function expand(Request $request, array $viewData): array
     {
-        $viewData['bfxReportsTableConfiguration'] = $this->getFactory()->createBfxReportsSalesOrderTabTableConfigurationProvider()->getConfiguration($merchantOrderTransfer);
+        $viewData['bfxReportsTableConfiguration'] = $this->getFactory()->createBfxReportsSalesOrderTabTableConfigurationProvider()->getConfiguration($request);
 
         return $viewData;
     }

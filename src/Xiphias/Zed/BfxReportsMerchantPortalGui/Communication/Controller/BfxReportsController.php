@@ -58,7 +58,7 @@ class BfxReportsController extends AbstractController
         return $this->getFactory()->getGuiTableHttpDataRequestExecutor()->execute(
             $request,
             $this->getFactory()->createBfxReportsMerchantPortalGuiTableDataProvider($request, $this->buildParams(ReportsConstants::BLADE_FX_MP_ORDER_ATTRIBUTE)),
-            $this->getFactory()->createBfxReportsMerchantPortalGuiTableConfigurationProvider()->getConfiguration(),
+            $this->getFactory()->createBfxReportsSalesOrderTabTableConfigurationProvider()->getConfiguration($request),
         );
     }
 
