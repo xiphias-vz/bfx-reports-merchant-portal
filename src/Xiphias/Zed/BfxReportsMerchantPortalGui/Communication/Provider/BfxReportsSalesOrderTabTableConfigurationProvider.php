@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider;
 
-use Generated\Shared\Transfer\BladeFxReportTransfer;
+use Xiphias\BladeFxApi\DTO\BladeFxReportTransfer;
 use Generated\Shared\Transfer\GuiTableConfigurationTransfer;
 use Spryker\Service\UtilText\Model\Url\Url;
 use Spryker\Shared\GuiTable\Configuration\Builder\GuiTableConfigurationBuilderInterface;

@@ -5,16 +5,22 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui;
 
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
-use Xiphias\Client\ReportsApi\ReportsApiClient;
-use Xiphias\Client\ReportsApi\ReportsApiClientInterface;
+use Xiphias\BladeFxApi\BladeFxApiClient;
+use Xiphias\BladeFxApi\BladeFxApiClientInterface;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\User\CreateBfxUserOnBfxMerchantPortalPlugin;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\User\DeleteBfxUserOnBfxMerchantPortalPlugin;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\User\UpdateBfxUserOnBfxMerchantPortalPlugin;
 
+/**
+ * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig getConfig()
+ */
 class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDependencyProvider
 {
+    use LoggerTrait;
+
     /**
      * @var string
      */
@@ -223,12 +229,14 @@ class BfxReportsMerchantPortalGuiDependencyProvider extends AbstractBundleDepend
      */
     protected function addBladeFxClient(Container $container): Container
     {
-        $container->set(
-            static::BLADE_FX_CLIENT,
-            static function (): ReportsApiClientInterface {
-                return new ReportsApiClient();
-            },
-        );
+        $container->set(static::BLADE_FX_CLIENT, function (Container $container): BladeFxApiClientInterface {
+            return new BladeFxApiClient(
+                $this->getConfig()->getHostUrl(),
+                $this->getConfig()->getDefaultUsername(),
+                $this->getConfig()->getDefaultPassword(),
+                $this->getLogger(),
+            );
+        });
 
         return $container;
     }

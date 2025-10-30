@@ -5,13 +5,14 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Controller;
 
-use Generated\Shared\Transfer\BladeFxCategoryTransfer;
-use Generated\Shared\Transfer\BladeFxParameterTransfer;
-use Generated\Shared\Transfer\BladeFxReportTransfer;
+use Xiphias\BladeFxApi\DTO\BladeFxCategoryTransfer;
+use Xiphias\BladeFxApi\DTO\BladeFxParameterTransfer;
+use Xiphias\BladeFxApi\DTO\BladeFxReportTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Xiphias\Shared\Reports\ReportsConstants;
 use Xiphias\Shared\Reports\ReportsConstants;
 
 /**
