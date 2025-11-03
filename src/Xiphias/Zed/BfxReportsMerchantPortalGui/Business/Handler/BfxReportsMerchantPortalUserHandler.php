@@ -81,7 +81,25 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
         return in_array($rootGroupId, $aclGroupIds);
     }
 
+
     /**
+     * @param UserTransfer $userTransfer
+     *
+     * @return string
+     */
+    public function getBladeFxAppRole(UserTransfer $userTransfer): string
+    {
+        if ($this->isMerchantUser($userTransfer->getIdUser())) {
+            if (!$this->isAdmin($userTransfer->getGroup())) {
+                return ReportsConstants::SPRYKER_MP_ROLE;
+            }
+        }
+
+        return ReportsConstants::SPRYKER_BO_ROLE;
+    }
+
+
+        /**
      * @param UserTransfer $userTransfer
      *
      * @return bool

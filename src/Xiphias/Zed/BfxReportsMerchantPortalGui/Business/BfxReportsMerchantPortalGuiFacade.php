@@ -98,22 +98,12 @@ class BfxReportsMerchantPortalGuiFacade extends AbstractFacade implements BfxRep
     }
 
     /**
-     * @param int $userId
+     * @param UserTransfer $transfer
      *
-     * @return bool
+     * @return string
      */
-    public function isMerchantUser(int $userId): bool
+    public function getBladeFxAppRole(UserTransfer $transfer): string
     {
-        return $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->isMerchantUser($userId);
-    }
-
-    /**
-     * @param array<int> $aclGroupIds
-     *
-     * @return bool
-     */
-    public function isAdmin(array $aclGroupIds): bool
-    {
-        return $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->isAdmin($aclGroupIds);
+        return $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->getBladeFxAppRole($transfer);
     }
 }

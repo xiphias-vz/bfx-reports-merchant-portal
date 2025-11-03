@@ -41,32 +41,6 @@ class DeleteBfxUserOnBfxMerchantPortalPlugin extends AbstractPlugin implements B
      */
     protected function getBladeFxAppRole(UserTransfer $userTransfer): string
     {
-        if ($this->isMerchantUser($userTransfer)) {
-            if (!$this->isAdmin($userTransfer)) {
-                return ReportsConstants::SPRYKER_MP_ROLE;
-            }
-        }
-
-        return ReportsConstants::SPRYKER_BO_ROLE;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
-     *
-     * @return bool
-     */
-    protected function isMerchantUser(UserTransfer $userTransfer): bool
-    {
-        return $this->getFacade()->isMerchantUser($userTransfer->getIdUser());
-    }
-
-    /**
-     * @param UserTransfer $userTransfer
-     *
-     * @return bool
-     */
-    protected function isAdmin(UserTransfer $userTransfer): bool
-    {
-        return $this->getFacade()->isAdmin($userTransfer->getGroup());
+        return $this->getFacade()->getBladeFxAppRole($userTransfer);
     }
 }
