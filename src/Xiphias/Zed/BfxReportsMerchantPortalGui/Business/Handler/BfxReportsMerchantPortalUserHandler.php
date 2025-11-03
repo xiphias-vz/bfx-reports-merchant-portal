@@ -126,9 +126,9 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
             if ($isActive) {
                 if ($responseTransfer->getSuccess()) {
                     if ($shouldRemoveRole) {
-                        $roleToRemove = $bfxRole === ReportsConstants::SPRKYER_BO_ROLE
+                        $roleToRemove = $bfxRole === ReportsConstants::SPRYKER_BO_ROLE
                             ? ReportsConstants::SPRYKER_MP_ROLE
-                            : ReportsConstants::SPRKYER_BO_ROLE;
+                            : ReportsConstants::SPRYKER_BO_ROLE;
 
                         $requestTransfer->setRoleName($roleToRemove);
                         $this->reportsApiClient->sendCreateOrUpdateUserOnBfxRequest($requestTransfer);

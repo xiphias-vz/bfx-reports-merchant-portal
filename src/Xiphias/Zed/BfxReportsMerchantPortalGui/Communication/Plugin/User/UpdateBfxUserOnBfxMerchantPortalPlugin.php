@@ -48,7 +48,7 @@ class UpdateBfxUserOnBfxMerchantPortalPlugin extends AbstractPlugin implements B
             }
         }
 
-        return ReportsConstants::SPRKYER_BO_ROLE;
+        return ReportsConstants::SPRYKER_BO_ROLE;
     }
 
     /**
