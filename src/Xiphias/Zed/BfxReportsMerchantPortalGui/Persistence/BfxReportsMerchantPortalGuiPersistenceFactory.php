@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence;
 
 use Orm\Zed\Acl\Persistence\SpyAclGroupQuery;
+use Orm\Zed\Acl\Persistence\SpyAclUserHasGroupQuery;
 use Orm\Zed\MerchantUser\Persistence\SpyMerchantUserQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -27,5 +28,13 @@ class BfxReportsMerchantPortalGuiPersistenceFactory extends AbstractPersistenceF
     public function createMerchantUserQuery(): SpyMerchantUserQuery
     {
         return new SpyMerchantUserQuery();
+    }
+
+    /**
+     * @return \Orm\Zed\MerchantUser\Persistence\SpyAclUserHasGroupQuery
+     */
+    public function createAclUserHasGroupQuery(): SpyAclUserHasGroupQuery
+    {
+        return new SpyAclUserHasGroupQuery();
     }
 }

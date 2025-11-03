@@ -6,6 +6,7 @@ namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\User;
 
 use Generated\Shared\Transfer\UserTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
+use Xiphias\Shared\Reports\ReportsConstants;
 use Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface;
 
 /**
@@ -31,7 +32,23 @@ class UpdateBfxUserOnBfxMerchantPortalPlugin extends AbstractPlugin implements B
      */
     public function execute(UserTransfer $userTransfer): void
     {
-        $this->getFacade()->createOrUpdateUserOnBladeFx($userTransfer, $this->isMerchantUser($userTransfer));
+        $this->getFacade()->createOrUpdateUserOnBladeFx($userTransfer, $this->getBladeFxAppRole($userTransfer), true, true);
+    }
+
+    /**
+     * @param UserTransfer $userTransfer
+     *
+     * @return string
+     */
+    protected function getBladeFxAppRole(UserTransfer $userTransfer): string
+    {
+        if ($this->isMerchantUser($userTransfer)) {
+            if (!$this->isAdmin($userTransfer)) {
+                return ReportsConstants::SPRYKER_MP_ROLE;
+            }
+        }
+
+        return ReportsConstants::SPRKYER_BO_ROLE;
     }
 
     /**
@@ -42,5 +59,15 @@ class UpdateBfxUserOnBfxMerchantPortalPlugin extends AbstractPlugin implements B
     protected function isMerchantUser(UserTransfer $userTransfer): bool
     {
         return $this->getFacade()->isMerchantUser($userTransfer->getIdUser());
+    }
+
+    /**
+     * @param UserTransfer $userTransfer
+     *
+     * @return bool
+     */
+    protected function isAdmin(UserTransfer $userTransfer): bool
+    {
+        return $this->getFacade()->isAdmin($userTransfer->getGroup());
     }
 }

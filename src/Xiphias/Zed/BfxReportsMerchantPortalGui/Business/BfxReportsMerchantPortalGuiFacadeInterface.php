@@ -40,18 +40,20 @@ interface BfxReportsMerchantPortalGuiFacadeInterface
     /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      * @param bool $isMerchantUser
+     * @param bool $isActive
+     * @param bool $isUpdate
      *
      * @return void
      */
-    public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser): void;
+    public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, string $bfxRole, bool $isActive = true, bool $isUpdate = false): void;
 
     /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
-     * @param bool $isMerchantUser
+     * @param string $bfxRole
      *
      * @return void
      */
-    public function deleteUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser): void;
+    public function deleteUserOnBladeFx(UserTransfer $userTransfer, string $bfxRole): void;
 
     /**
      * @param \Generated\Shared\Transfer\NavigationItemCollectionTransfer $navigationItemCollectionTransfer
@@ -73,4 +75,11 @@ interface BfxReportsMerchantPortalGuiFacadeInterface
      * @return bool
      */
     public function isMerchantUser(int $userId): bool;
+
+    /**
+     * @param array<int> $aclGroupIds
+     *
+     * @return bool
+     */
+    public function isAdmin(array $aclGroupIds): bool;
 }

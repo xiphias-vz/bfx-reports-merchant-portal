@@ -19,19 +19,21 @@ interface BfxReportsMerchantPortalUserHandlerInterface
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      * @param bool $isActive
      * @param bool $isMerchantUser
+     * @param bool $isUpdate
      *
      * @return void
      */
-    public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, bool $isActive = true, bool $isMerchantUser = false): void;
+    public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, string $bfxRole, bool $isActive, bool $isUpdate): void;
 
     /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
-     * @param bool $isMerchantUser
+     * @param string $bfxRole
      * @param bool $isActive
+     * @param bool $isUpdate
      *
      * @return void
      */
-    public function deleteUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser, bool $isActive = false): void;
+    public function deleteUserOnBladeFx(UserTransfer $userTransfer, string $bfxRole): void;
 
     /**
      * @param int $userId
@@ -39,4 +41,18 @@ interface BfxReportsMerchantPortalUserHandlerInterface
      * @return bool
      */
     public function isMerchantUser(int $userId): bool;
+
+    /**
+     * @param array<int> $aclGroupIds
+     *
+     * @return bool
+     */
+    public function isAdmin(array $aclGroupIds): bool;
+
+    /**
+     * @param UserTransfer $userTransfer
+     *
+     * @return bool
+     */
+    public function hasRootGroupStatusChanged(UserTransfer $userTransfer): bool;
 }
