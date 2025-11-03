@@ -16,8 +16,8 @@ use Spryker\Client\Session\SessionClientInterface;
 use Spryker\Zed\Event\Business\EventFacadeInterface;
 use Spryker\Zed\Messenger\Business\MessengerFacadeInterface;
 use Xiphias\BladeFxApi\BladeFxApiClientInterface;
-use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig;
 use Xiphias\Shared\Reports\ReportsConstants;
+use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiRepositoryInterface;
 use Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface;
 
@@ -70,21 +70,87 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
     }
 
     /**
+     * @param array<int> $aclGroupIds
+     *
+     * @return bool
+     */
+    public function isAdmin(array $aclGroupIds): bool
+    {
+        $rootGroupId = $this->repository->getRootGroupId();
+
+        return in_array($rootGroupId, $aclGroupIds);
+    }
+
+
+    /**
+     * @param UserTransfer $userTransfer
+     *
+     * @return string
+     */
+    public function getBladeFxAppRole(UserTransfer $userTransfer): string
+    {
+        if ($this->isMerchantUser($userTransfer->getIdUser())) {
+            if (!$this->isAdmin($userTransfer->getGroup())) {
+                return ReportsConstants::SPRYKER_MP_ROLE;
+            }
+        }
+
+        return ReportsConstants::SPRYKER_BO_ROLE;
+    }
+
+
+        /**
+     * @param UserTransfer $userTransfer
+     *
+     * @return bool
+     */
+    public function hasRootGroupStatusChanged(UserTransfer $userTransfer): bool
+    {
+        $rootGroupId = $this->repository->getRootGroupId();
+        $aclGroupIds = $userTransfer->getGroup();
+        $isUserCurrentlyAdmin = in_array($rootGroupId, $aclGroupIds);
+        $wasUserAlreadyAdmin = $this->repository->hasUserRootGroupInDB($userTransfer->getIdUser());
+
+        return $isUserCurrentlyAdmin !== $wasUserAlreadyAdmin;
+    }
+
+
+
+
+    /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      * @param bool $isActive
      * @param bool $isMerchantUser
+     * @param bool $isUpdate
      *
      * @return void
      */
-    public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, bool $isActive = true, bool $isMerchantUser = false): void
+    public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, string $bfxRole, bool $isActive, bool $isUpdate): void
     {
-        $requestTransfer = $this->generateAuthenticatedCreateOrUpdateUserOnBladeFxRequestTransfer($userTransfer, $isActive, $isMerchantUser);
+        $shouldRemoveRole = false;
+        if ($isUpdate) {
+            $hasRootGroupStatusChanged = $this->hasRootGroupStatusChanged($userTransfer);
+            if ($hasRootGroupStatusChanged) {
+                $shouldRemoveRole = true;
+            } else {
+                $bfxRole = '';
+            }
+        }
+
+        $requestTransfer = $this->generateAuthenticatedCreateOrUpdateUserOnBladeFxRequestTransfer($userTransfer, $bfxRole, $isActive);
 
         try {
             $responseTransfer = $this->reportsApiClient->sendCreateOrUpdateUserOnBfxRequest($requestTransfer);
-
             if ($isActive) {
                 if ($responseTransfer->getSuccess()) {
+                    if ($shouldRemoveRole) {
+                        $roleToRemove = $bfxRole === ReportsConstants::SPRYKER_BO_ROLE
+                            ? ReportsConstants::SPRYKER_MP_ROLE
+                            : ReportsConstants::SPRYKER_BO_ROLE;
+
+                        $requestTransfer->setRoleName($roleToRemove);
+                        $this->reportsApiClient->sendCreateOrUpdateUserOnBfxRequest($requestTransfer);
+                    }
                     $passwordUpdateRequestTransfer = $this->generateAuthenticatedUpdatePasswordOnBladeFxRequest($userTransfer, $responseTransfer);
                     $this->reportsApiClient->sendUpdatePasswordOnBladeFxRequest($passwordUpdateRequestTransfer);
 
@@ -107,14 +173,13 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
 
     /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
-     * @param bool $isMerchantUser
-     * @param bool $isActive
+     * @param string $bfxRole
      *
      * @return void
      */
-    public function deleteUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser, bool $isActive = false): void
+    public function deleteUserOnBladeFx(UserTransfer $userTransfer, string $bfxRole): void
     {
-        $this->createOrUpdateUserOnBladeFx($userTransfer, false);
+        $this->createOrUpdateUserOnBladeFx($userTransfer, $bfxRole,false, false);
     }
 
     /**
@@ -126,8 +191,8 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
      */
     public function generateAuthenticatedCreateOrUpdateUserOnBladeFxRequestTransfer(
         UserTransfer $userTransfer,
-        bool $isActive = true,
-        bool $isMerchantUser = false
+        string $bfxRole,
+        bool $isActive = true
     ): BladeFxCreateOrUpdateUserRequestTransfer {
         $bladeFxCreateOrUpdateUserRequestTransfer = (new BladeFxCreateOrUpdateUserRequestTransfer())
             ->setToken((new BladeFxTokenTransfer())->setAccessToken($this->getToken()))
@@ -135,7 +200,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
             ->setFirstName($userTransfer->getFirstName())
             ->setLastName($userTransfer->getLastName())
             ->setPassword($userTransfer->getPassword())
-            ->setRoleName($isMerchantUser ? ReportsConstants::SPRYKER_MP_ROLE : ReportsConstants::SRYKER_BO_ROLE)
+            ->setRoleName($bfxRole)
             ->setCompanyId($this->getUserIdCompany())
             ->setLanguageId($this->getUserIdLanguage())
             ->setIsActive($isActive)
@@ -143,7 +208,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
                 ->setFieldName($this->config->getSprykerUserIdKey())
                 ->setFieldValue((string)($userTransfer->getIdUser())));
 
-        return $this->appendMerchantIdToRequest($bladeFxCreateOrUpdateUserRequestTransfer, $userTransfer->getIdUser(), $isMerchantUser);
+        return $this->appendMerchantIdToRequest($bladeFxCreateOrUpdateUserRequestTransfer, $userTransfer->getIdUser(), $bfxRole);
     }
 
     /**
@@ -172,9 +237,9 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
     protected function appendMerchantIdToRequest(
         BladeFxCreateOrUpdateUserRequestTransfer $bladeFxCreateOrUpdateUserRequestTransfer,
         int $userId,
-        bool $isMerchantUser
+        string $bfxRole
     ): BladeFxCreateOrUpdateUserRequestTransfer {
-        if ($isMerchantUser) {
+        if ($bfxRole === ReportsConstants::SPRYKER_MP_ROLE) {
             return $bladeFxCreateOrUpdateUserRequestTransfer
                 ->addCustomFields((new BladeFxCreateOrUpdateUserCustomFieldsTransfer())
                     ->setFieldName($this->config->getMerchantIdKey())

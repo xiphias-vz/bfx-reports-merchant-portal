@@ -57,24 +57,24 @@ class BfxReportsMerchantPortalGuiFacade extends AbstractFacade implements BfxRep
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      * @param bool $isMerchantUser
      * @param bool $isActive
+     * @param bool $isUpdate
      *
      * @return void
      */
-    public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser, bool $isActive = true): void
+    public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, string $bfxRole, bool $isActive = true, bool $isUpdate = false): void
     {
-        $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->createOrUpdateUserOnBladeFx($userTransfer, $isActive, $isMerchantUser);
+        $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->createOrUpdateUserOnBladeFx($userTransfer, $bfxRole, $isActive, $isUpdate);
     }
 
     /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
-     * @param bool $isMerchantUser
-     * @param bool $isActive
+     * @param string $bfxRole
      *
      * @return void
      */
-    public function deleteUserOnBladeFx(UserTransfer $userTransfer, bool $isMerchantUser, bool $isActive = false): void
+    public function deleteUserOnBladeFx(UserTransfer $userTransfer, string $bfxRole): void
     {
-        $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->deleteUserOnBladeFx($userTransfer, $isActive, $isMerchantUser);
+        $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->deleteUserOnBladeFx($userTransfer, $bfxRole);
     }
 
     /**
@@ -98,12 +98,12 @@ class BfxReportsMerchantPortalGuiFacade extends AbstractFacade implements BfxRep
     }
 
     /**
-     * @param int $userId
+     * @param UserTransfer $transfer
      *
-     * @return bool
+     * @return string
      */
-    public function isMerchantUser(int $userId): bool
+    public function getBladeFxAppRole(UserTransfer $transfer): string
     {
-        return $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->isMerchantUser($userId);
+        return $this->getFactory()->createBfxReportsMerchantPortalUserHandler()->getBladeFxAppRole($transfer);
     }
 }

@@ -12,6 +12,11 @@ interface BfxReportsMerchantPortalGuiRepositoryInterface
     public function getBladeFxGroupId(): int;
 
     /**
+     * @return int
+     */
+    public function getRootGroupId(): int;
+
+    /**
      * @param int $userId
      *
      * @return int
@@ -24,4 +29,11 @@ interface BfxReportsMerchantPortalGuiRepositoryInterface
      * @return bool
      */
     public function isMerchantUser(int $userId): bool;
+
+    /**
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function hasUserRootGroupInDB(int $userId): bool;
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence;
 
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
+use Xiphias\Shared\Reports\ReportsConstants;
 
 /**
  * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiPersistenceFactory getFactory();
@@ -17,6 +18,14 @@ class BfxReportsMerchantPortalGuiRepository extends AbstractRepository implement
     public function getBladeFxGroupId(): int
     {
         return $this->findWantedGroupId($this->getFactory()->getConfig()->getBladeFxGroupName());
+    }
+
+    /**
+     * @return int
+     */
+    public function getRootGroupId(): int
+    {
+        return $this->findWantedGroupId($this->getFactory()->getConfig()->getRootGroupName());
     }
 
     /**
@@ -40,13 +49,28 @@ class BfxReportsMerchantPortalGuiRepository extends AbstractRepository implement
     public function isMerchantUser(int $userId): bool
     {
         $merchantUserQuery = $this->getFactory()->createMerchantUserQuery();
-        $ifUserHasMerchant = $merchantUserQuery->findByFkUser($userId)->getIterator()->current() ?? false;
+        $isMerchantUser = $merchantUserQuery->findByFkUser($userId)->getIterator()->current() ?? false;
 
-        if ($ifUserHasMerchant) {
-            return true;
-        }
+        return !!$isMerchantUser;
+    }
 
-        return false;
+    /**
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function hasUserRootGroupInDB(int $userId): bool
+    {
+        $aclUserHasGroupQuery = $this->getFactory()->createAclUserHasGroupQuery();
+        $rootGroupId = $this->getRootGroupId();
+        $aclUserHasGroup =  $aclUserHasGroupQuery
+            ->filterByFkAclGroup($rootGroupId)
+            ->filterByFkUser($userId)
+            ->find()
+            ->getIterator()
+            ->current();
+
+        return !!$aclUserHasGroup;
     }
 
     /**
