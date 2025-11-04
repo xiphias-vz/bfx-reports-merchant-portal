@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence;
 
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
-use Xiphias\Shared\Reports\ReportsConstants;
 
 /**
  * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Persistence\BfxReportsMerchantPortalGuiPersistenceFactory getFactory();
@@ -51,7 +50,7 @@ class BfxReportsMerchantPortalGuiRepository extends AbstractRepository implement
         $merchantUserQuery = $this->getFactory()->createMerchantUserQuery();
         $isMerchantUser = $merchantUserQuery->findByFkUser($userId)->getIterator()->current() ?? false;
 
-        return !!$isMerchantUser;
+        return (bool)$isMerchantUser;
     }
 
     /**
@@ -63,14 +62,14 @@ class BfxReportsMerchantPortalGuiRepository extends AbstractRepository implement
     {
         $aclUserHasGroupQuery = $this->getFactory()->createAclUserHasGroupQuery();
         $rootGroupId = $this->getRootGroupId();
-        $aclUserHasGroup =  $aclUserHasGroupQuery
+        $aclUserHasGroup = $aclUserHasGroupQuery
             ->filterByFkAclGroup($rootGroupId)
             ->filterByFkUser($userId)
             ->find()
             ->getIterator()
             ->current();
 
-        return !!$aclUserHasGroup;
+        return (bool)$aclUserHasGroup;
     }
 
     /**

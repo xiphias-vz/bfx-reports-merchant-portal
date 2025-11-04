@@ -5,12 +5,12 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider;
 
-use Xiphias\BladeFxApi\DTO\BladeFxReportTransfer;
 use Generated\Shared\Transfer\GuiTableConfigurationTransfer;
 use Spryker\Service\UtilText\Model\Url\Url;
 use Spryker\Shared\GuiTable\Configuration\Builder\GuiTableConfigurationBuilderInterface;
 use Spryker\Shared\GuiTable\GuiTableFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Xiphias\BladeFxApi\DTO\BladeFxReportTransfer;
 use Xiphias\Shared\Reports\ReportsConstants;
 
 class BfxReportsSalesOrderTabTableConfigurationProvider
@@ -29,7 +29,7 @@ class BfxReportsSalesOrderTabTableConfigurationProvider
     }
 
     /**
-     * @param \Generated\Shared\Transfer\MerchantOrderTransfer $merchantOrderTransfer
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Generated\Shared\Transfer\GuiTableConfigurationTransfer
      */
@@ -103,7 +103,9 @@ class BfxReportsSalesOrderTabTableConfigurationProvider
     }
 
     /**
-     * @return array
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return array<string, string | int>
      */
     protected function generateQueryParams(Request $request): array
     {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\Sales;
 
-use Generated\Shared\Transfer\MerchantOrderTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,8 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 class BfxReportsSalesTableConfigurationViewExpanderPlugin extends AbstractPlugin implements BfxReportsSalesMerchantPortalGuiViewExpanderPluginInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\MerchantOrderTransfer $merchantOrderTransfer
-     * @param array $viewData
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param array<string, mixed> $viewData
      *
      * @return array
      */

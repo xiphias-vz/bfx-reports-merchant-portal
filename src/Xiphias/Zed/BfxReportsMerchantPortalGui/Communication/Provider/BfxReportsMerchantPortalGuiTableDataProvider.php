@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider;
 
 use Generated\Shared\Transfer\BladeFxCriteriaTransfer;
-use Xiphias\BladeFxApi\DTO\BladeFxReportTransfer;
 use Generated\Shared\Transfer\GuiTableDataRequestTransfer;
 use Generated\Shared\Transfer\GuiTableDataResponseTransfer;
 use Generated\Shared\Transfer\GuiTableRowDataResponseTransfer;
@@ -13,6 +12,7 @@ use Spryker\Shared\GuiTable\DataProvider\AbstractGuiTableDataProvider;
 use Spryker\Shared\GuiTable\DataProvider\GuiTableDataProviderInterface;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 use Symfony\Component\HttpFoundation\Request;
+use Xiphias\BladeFxApi\DTO\BladeFxReportTransfer;
 use Xiphias\Shared\Reports\ReportsConstants;
 use Xiphias\Zed\Reports\Business\ReportsFacadeInterface;
 

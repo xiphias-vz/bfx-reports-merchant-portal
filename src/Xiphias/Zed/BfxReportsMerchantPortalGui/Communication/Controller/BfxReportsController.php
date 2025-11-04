@@ -5,13 +5,12 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Controller;
 
-use Xiphias\BladeFxApi\DTO\BladeFxCategoryTransfer;
-use Xiphias\BladeFxApi\DTO\BladeFxParameterTransfer;
-use Xiphias\BladeFxApi\DTO\BladeFxReportTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Xiphias\BladeFxApi\DTO\BladeFxCategoryTransfer;
+use Xiphias\BladeFxApi\DTO\BladeFxReportTransfer;
 use Xiphias\Shared\Reports\ReportsConstants;
 
 /**
@@ -144,8 +143,8 @@ class BfxReportsController extends AbstractController
     {
         $reportId = $this->castId($request->query->get(BladeFxReportTransfer::REP_ID));
         $reportName = $request->query->get(BladeFxReportTransfer::REP_NAME);
-        $paramName = $request->query->get(BladeFxParameterTransfer::PARAM_NAME);
-        $paramValue = $request->query->get(BladeFxParameterTransfer::PARAM_VALUE);
+        $paramName = $request->query->get(ReportsConstants::PARAMETER_NAME);
+        $paramValue = $request->query->get(ReportsConstants::PARAMETER_VALUE);
 
         $url = "/bfx-reports-merchant-portal-gui/bfx-reports/report-download?repId={$reportId}&repName={$reportName}&format=pdf";
         if ($paramName && $paramValue) {
@@ -171,7 +170,7 @@ class BfxReportsController extends AbstractController
     {
         $categories = $this->getFactory()->getReportsFacade()->processCategoryTreeListRequest($request);
         $categories = array_map(function (BladeFxCategoryTransfer $category) {
-            return $category->toArray(true, true);
+            return $category->toArray();
         }, $categories);
 
         $categoryTree = $this->getFactory()->getReportsFacade()->assembleCategoryTree($categories);

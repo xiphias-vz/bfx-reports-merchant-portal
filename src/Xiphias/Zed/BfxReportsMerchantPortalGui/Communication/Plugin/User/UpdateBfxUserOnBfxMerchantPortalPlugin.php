@@ -6,7 +6,6 @@ namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\User;
 
 use Generated\Shared\Transfer\UserTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
-use Xiphias\Shared\Reports\ReportsConstants;
 use Xiphias\Zed\SprykerBladeFxUser\Communication\Plugin\User\BfxUserHandlerPluginInterface;
 
 /**
@@ -36,7 +35,7 @@ class UpdateBfxUserOnBfxMerchantPortalPlugin extends AbstractPlugin implements B
     }
 
     /**
-     * @param UserTransfer $userTransfer
+     * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      *
      * @return string
      */
