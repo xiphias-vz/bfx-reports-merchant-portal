@@ -17,8 +17,8 @@ interface BfxReportsMerchantPortalUserHandlerInterface
 
     /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
+     * @param string $bfxRole
      * @param bool $isActive
-     * @param bool $isMerchantUser
      * @param bool $isUpdate
      *
      * @return void
@@ -28,8 +28,6 @@ interface BfxReportsMerchantPortalUserHandlerInterface
     /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      * @param string $bfxRole
-     * @param bool $isActive
-     * @param bool $isUpdate
      *
      * @return void
      */
@@ -50,7 +48,14 @@ interface BfxReportsMerchantPortalUserHandlerInterface
     public function isAdmin(array $aclGroupIds): bool;
 
     /**
-     * @param UserTransfer $userTransfer
+     * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
+     *
+     * @return string
+     */
+    public function getBladeFxAppRole(UserTransfer $userTransfer): string;
+
+    /**
+     * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
      *
      * @return bool
      */

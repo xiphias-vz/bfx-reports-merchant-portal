@@ -67,7 +67,7 @@ class BfxReportsMerchantPortalGuiCommunicationFactory extends AbstractCommunicat
     }
 
     /**
-     * @return \Spryker\Client\Session\SessionClientInterface;
+     * @return \Spryker\Client\Session\SessionClientInterface
      */
     public function getSessionClient(): SessionClientInterface
     {

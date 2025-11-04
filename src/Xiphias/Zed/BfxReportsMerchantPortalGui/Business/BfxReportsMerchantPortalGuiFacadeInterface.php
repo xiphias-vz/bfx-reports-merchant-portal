@@ -39,7 +39,7 @@ interface BfxReportsMerchantPortalGuiFacadeInterface
 
     /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
-     * @param bool $isMerchantUser
+     * @param string $bfxRole
      * @param bool $isActive
      * @param bool $isUpdate
      *
@@ -68,18 +68,4 @@ interface BfxReportsMerchantPortalGuiFacadeInterface
      * @return bool
      */
     public function hasUserBfxGroup(int $userId): bool;
-
-    /**
-     * @param int $userId
-     *
-     * @return bool
-     */
-    public function isMerchantUser(int $userId): bool;
-
-    /**
-     * @param array<int> $aclGroupIds
-     *
-     * @return bool
-     */
-    public function isAdmin(array $aclGroupIds): bool;
 }

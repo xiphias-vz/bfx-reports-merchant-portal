@@ -5,11 +5,11 @@ declare(strict_types=1);
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Provider;
 
-use Xiphias\BladeFxApi\DTO\BladeFxReportTransfer;
 use Generated\Shared\Transfer\GuiTableConfigurationTransfer;
 use Spryker\Shared\GuiTable\Configuration\Builder\GuiTableConfigurationBuilderInterface;
 use Spryker\Shared\GuiTable\GuiTableFactoryInterface;
 use Spryker\Zed\MerchantUser\Business\MerchantUserFacadeInterface;
+use Xiphias\BladeFxApi\DTO\BladeFxReportTransfer;
 
 class BfxReportsMerchantPortalGuiTableConfigurationProvider
 {

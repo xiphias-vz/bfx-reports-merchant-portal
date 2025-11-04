@@ -31,7 +31,7 @@ class BfxReportsMerchantPortalGuiPersistenceFactory extends AbstractPersistenceF
     }
 
     /**
-     * @return \Orm\Zed\MerchantUser\Persistence\SpyAclUserHasGroupQuery
+     * @return \Orm\Zed\Acl\Persistence\SpyAclUserHasGroupQuery
      */
     public function createAclUserHasGroupQuery(): SpyAclUserHasGroupQuery
     {

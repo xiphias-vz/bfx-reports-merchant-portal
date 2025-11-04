@@ -55,7 +55,7 @@ class BfxReportsMerchantPortalGuiFacade extends AbstractFacade implements BfxRep
 
     /**
      * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
-     * @param bool $isMerchantUser
+     * @param string $bfxRole
      * @param bool $isActive
      * @param bool $isUpdate
      *
@@ -98,7 +98,7 @@ class BfxReportsMerchantPortalGuiFacade extends AbstractFacade implements BfxRep
     }
 
     /**
-     * @param UserTransfer $transfer
+     * @param \Generated\Shared\Transfer\UserTransfer $transfer
      *
      * @return string
      */

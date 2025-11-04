@@ -2,15 +2,17 @@
 
 namespace Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\Plugin\Sales;
 
-use Generated\Shared\Transfer\MerchantOrderTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @method \Xiphias\Zed\BfxReportsMerchantPortalGui\Communication\BfxReportsMerchantPortalGuiCommunicationFactory getFactory();
+ */
 class BfxReportsExistingLoginMerchantPortalViewExpanderPlugin extends AbstractPlugin implements BfxReportsSalesMerchantPortalGuiViewExpanderPluginInterface
 {
     /**
-     * @param Request $request
-     * @param array $viewData
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param array<string, mixed> $viewData
      *
      * @return array
      */
