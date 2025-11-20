@@ -14,7 +14,6 @@ use Xiphias\BladeFxApi\BladeFxApiClientInterface;
 use Xiphias\BladeFxApi\DTO\BladeFxCreateOrUpdateUserCustomFieldsTransfer;
 use Xiphias\BladeFxApi\DTO\BladeFxCreateOrUpdateUserRequestTransfer;
 use Xiphias\BladeFxApi\DTO\BladeFxCreateOrUpdateUserResponseTransfer;
-use Xiphias\BladeFxApi\DTO\BladeFxTokenTransfer;
 use Xiphias\BladeFxApi\DTO\BladeFxUpdatePasswordRequestTransfer;
 use Xiphias\Shared\Reports\ReportsConstants;
 use Xiphias\Zed\BfxReportsMerchantPortalGui\BfxReportsMerchantPortalGuiConfig;
@@ -96,11 +95,11 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
         return ReportsConstants::SPRYKER_BO_ROLE;
     }
 
-        /**
-         * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
-         *
-         * @return bool
-         */
+    /**
+     * @param \Generated\Shared\Transfer\UserTransfer $userTransfer
+     *
+     * @return bool
+     */
     public function hasRootGroupStatusChanged(UserTransfer $userTransfer): bool
     {
         $rootGroupId = $this->repository->getRootGroupId();
@@ -121,6 +120,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
      */
     public function createOrUpdateUserOnBladeFx(UserTransfer $userTransfer, string $bfxRole, bool $isActive, bool $isUpdate): void
     {
+        $fromSpryker = true;
         $shouldRemoveRole = false;
         if ($isUpdate) {
             $hasRootGroupStatusChanged = $this->hasRootGroupStatusChanged($userTransfer);
@@ -134,7 +134,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
         $requestTransfer = $this->generateAuthenticatedCreateOrUpdateUserOnBladeFxRequestTransfer($userTransfer, $bfxRole, $isActive);
 
         try {
-            $responseTransfer = $this->reportsApiClient->sendCreateOrUpdateUserOnBfxRequest($requestTransfer);
+            $responseTransfer = $this->reportsApiClient->sendCreateOrUpdateUserOnBfxRequest($requestTransfer, $fromSpryker);
             if ($isActive) {
                 if ($responseTransfer->getSuccess()) {
                     if ($shouldRemoveRole) {
@@ -143,10 +143,10 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
                             : ReportsConstants::SPRYKER_BO_ROLE;
 
                         $requestTransfer->setRoleName($roleToRemove);
-                        $this->reportsApiClient->sendCreateOrUpdateUserOnBfxRequest($requestTransfer);
+                        $this->reportsApiClient->sendCreateOrUpdateUserOnBfxRequest($requestTransfer, $fromSpryker);
                     }
                     $passwordUpdateRequestTransfer = $this->generateAuthenticatedUpdatePasswordOnBladeFxRequest($userTransfer, $responseTransfer);
-                    $this->reportsApiClient->sendUpdatePasswordOnBladeFxRequest($passwordUpdateRequestTransfer);
+                    $this->reportsApiClient->sendUpdatePasswordOnBladeFxRequest($passwordUpdateRequestTransfer, $fromSpryker);
 
                     return;
                 }
@@ -189,7 +189,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
         bool $isActive = true
     ): BladeFxCreateOrUpdateUserRequestTransfer {
         $bladeFxCreateOrUpdateUserRequestTransfer = (new BladeFxCreateOrUpdateUserRequestTransfer())
-            ->setToken((new BladeFxTokenTransfer())->setAccessToken($this->getToken()))
+            ->setAccessToken($this->getToken())
             ->setEmail($userTransfer->getUsername())
             ->setFirstName($userTransfer->getFirstName())
             ->setLastName($userTransfer->getLastName())
@@ -216,7 +216,7 @@ class BfxReportsMerchantPortalUserHandler implements BfxReportsMerchantPortalUse
         BladeFxCreateOrUpdateUserResponseTransfer $responseTransfer
     ): BladeFxUpdatePasswordRequestTransfer {
         return (new BladeFxUpdatePasswordRequestTransfer())
-            ->setToken((new BladeFxTokenTransfer())->setAccessToken($this->getToken()))
+            ->setAccessToken($this->getToken())
             ->setBladeFxUserId($responseTransfer->getId())
             ->setPassword($userTransfer->getPassword());
     }
